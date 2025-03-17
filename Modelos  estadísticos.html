@@ -390,7 +390,7 @@ document.write(`
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#planteamiento"><em>Planteamiento</em></a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#solucion"><em>Solución</em></a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-exponential-smoothing-sin-libreria">Simple Exponential Smoothing (Sin Librería)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-exponential-smoothing-con-libreria">Simple Exponential Smoothing (con librería)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-exponential-smoothing-usando-statsmodels-tsa-holtwinters">Simple Exponential Smoothing (usando statsmodels.tsa.holtwinters)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#double-exponential-smoothing-sin-libreria">Double Exponential Smoothing (Sin librería)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#double-exponential-smoothing-usando-statsmodels-tsa-holtwinters">Double Exponential Smoothing (Usando statsmodels.tsa.holtwinters)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arima-sin-rolling">ARIMA (Sin Rolling)</a></li>
@@ -448,7 +448,7 @@ MAPE, MAE, RMSE, MSE, <span class="math notranslate nohighlight">\(R^2\)</span>,
 <h2>Simple Exponential Smoothing (Sin Librería)<a class="headerlink" href="#simple-exponential-smoothing-sin-libreria" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Simple Exponential Smoothing (Sin Librería) para la columna &quot;Precio&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Simple Exponential Smoothing (Sin Librería) para la columna &quot;Precio&quot;</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
@@ -674,9 +674,14 @@ MAPE, MAE, RMSE, MSE, <span class="math notranslate nohighlight">\(R^2\)</span>,
 <img alt="_images/d41de64e42ff2a38175e46d9bdea51ec3286129210b9ba3f5e25db498622dde2.png" src="_images/d41de64e42ff2a38175e46d9bdea51ec3286129210b9ba3f5e25db498622dde2.png" />
 </div>
 </div>
+<p>Comparando los distintos valores de τ (horizonte de suavizamiento), se observó que τ = 14 presentó el mejor rendimiento global. Este valor obtuvo el menor MAE (592.99) y MAPE (1.14%), lo que indica una menor desviación respecto a los valores reales. Además, registró los menores MSE y RMSE, lo que sugiere una menor dispersión de los errores. Sin embargo, su coeficiente de determinación R² fue bajo (0.0261), lo que indica que el modelo no explicó adecuadamente la variabilidad de los datos.</p>
+<p>Por otro lado, los valores de τ = 21 y τ = 28 presentaron errores más elevados (MAE y MAPE), aunque τ = 21 alcanzó un R² más alto (0.7161), lo que sugiere un mejor ajuste con mayor variabilidad. En el caso de τ = 7, los errores fueron elevados y el R² resultó bajo (0.0818), indicando que el suavizamiento a corto plazo no fue el más efectivo. Como resultado, el mejor compromiso entre error y estabilidad se observó en τ = 14, aunque τ = 21 presentó un mejor R².</p>
+<p>En cuanto a la prueba de independencia Ljung-Box, se utilizó para evaluar si los residuos eran independientes y no presentaban autocorrelación. Un p-valor menor a 0.05 sugiere que los residuos aún contienen estructura dependiente (no son ruido blanco). Se encontró que todos los modelos tuvieron p-valores menores a 0.05, excepto τ = 14, que registró un valor de 0.0465, cercano al umbral de significancia. Esto indica que los residuos continuaron presentando dependencia temporal, lo que sugiere que el modelo SES no capturó completamente la estructura de la serie.</p>
+<p>Adicionalmente, se aplicó la prueba de no linealidad BDS para determinar si los residuos contenían estructura no lineal. Los valores de p extremadamente bajos (por ejemplo, 1.22e-15 en τ = 7) indicaron que los residuos presentaban patrones no capturados por el modelo. En consecuencia, todos los modelos mostraron residuos con comportamiento no lineal, lo que sugiere que SES no fue suficiente para capturar completamente la dinámica de BTC-USD.</p>
+<p>Finalmente, se realizó la prueba de normalidad de Jarque-Bera. En este caso, un p-valor mayor a 0.05 indica que los residuos siguen una distribución normal. Se encontró que todos los modelos presentaron p-valores superiores a 0.5, lo que sugiere que los residuos eran aproximadamente normales.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Simple Exponential Smoothing (Sin Librería) para la columna &quot;Cumulative_Return&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Simple Exponential Smoothing (Sin Librería) para la columna &quot;Cumulative_Return&quot;</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
@@ -902,9 +907,15 @@ MAPE, MAE, RMSE, MSE, <span class="math notranslate nohighlight">\(R^2\)</span>,
 <img alt="_images/e9da6cbf2bc86af2ebc2fee27d32bd4135e41d8fdf57b465bb37e3207f73db6f.png" src="_images/e9da6cbf2bc86af2ebc2fee27d32bd4135e41d8fdf57b465bb37e3207f73db6f.png" />
 </div>
 </div>
+<p>Se aplicó el modelo de Suavizamiento Exponencial Simple (SES) sin librerías a la serie “Cumulative_Return” utilizando diferentes valores del parámetro τ (horizonte de suavizamiento). Los resultados obtenidos fueron los siguientes:</p>
+<p>Para τ = 7, se observó un MAE de 0.03756 y un MAPE de 0.1611, lo que indicó una desviación relativamente alta en la predicción de los retornos acumulativos. Además, el R² fue bajo (0.0734), sugiriendo que el modelo explicó solo una pequeña parte de la variabilidad de los datos. El p-valor de la prueba de Ljung-Box (0.0106) indicó que los residuos aún presentaban autocorrelación, mientras que el p-valor de la prueba BDS (7.99e-25) reveló la presencia de no linealidad en los residuos. La prueba de Jarque-Bera (p-valor = 0.6893) sugirió que los residuos seguían aproximadamente una distribución normal.</p>
+<p>Para τ = 14, se obtuvo el mejor rendimiento en términos de precisión, con un MAE de 0.01186 y un MAPE de 0.0506, lo que reflejó una menor desviación respecto a los valores reales. Sin embargo, el R² permaneció bajo (0.0246), indicando que el modelo no explicó completamente la variabilidad de la serie. El p-valor de Ljung-Box (0.0506) se acercó al umbral de significancia, lo que sugiere una ligera presencia de autocorrelación en los residuos. Por otro lado, la prueba BDS (7.58e-16) confirmó la existencia de no linealidad, mientras que la prueba de Jarque-Bera (p-valor = 0.7819) indicó que los residuos eran aproximadamente normales.</p>
+<p>Para τ = 21, el modelo presentó un MAE de 0.05015 y un MAPE de 0.2122, lo que evidenció un mayor error en la predicción. Sin embargo, el R² aumentó significativamente a 0.7166, lo que sugiere un mejor ajuste del modelo en comparación con los valores de τ más bajos. A pesar de ello, la prueba de Ljung-Box arrojó un p-valor de 0.000018, lo que indicó una fuerte autocorrelación en los residuos. La prueba BDS (9.23e-13) confirmó la presencia de no linealidad, mientras que la prueba de Jarque-Bera (p-valor = 0.7322) sugirió que los residuos eran aproximadamente normales.</p>
+<p>Para τ = 28, el modelo mostró un MAE de 0.04485 y un MAPE de 0.1894, con un R² de 0.4286. Aunque el ajuste mejoró en comparación con τ = 14, la precisión en la predicción no fue óptima. El p-valor de Ljung-Box (0.000026) confirmó la presencia de autocorrelación en los residuos, mientras que la prueba BDS (3.00e-05) indicó una reducción en la no linealidad en comparación con horizontes más cortos. Finalmente, la prueba de Jarque-Bera (p-valor = 0.6223) confirmó que los residuos seguían aproximadamente una distribución normal.</p>
+<p>De esto se deduce que el SES con τ = 14 proporcionó el mejor equilibrio entre precisión y estabilidad, aunque el bajo R² sugirió que el modelo no logró capturar toda la variabilidad de la serie. Los residuos presentaron autocorrelación y estructura no lineal en todos los casos, lo que indica que el SES no fue suficiente para modelar completamente la dinámica de “Cumulative_Return”. Se recomienda explorar modelos más complejos, como ARIMA o modelos no lineales, para mejorar el ajuste y la capacidad predictiva.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Simple Exponential Smoothing (Sin Librería) para la columna &quot;Volatility_7d&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Simple Exponential Smoothing (Sin Librería) para la columna &quot;Volatility_7d&quot;</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
@@ -1130,9 +1141,15 @@ MAPE, MAE, RMSE, MSE, <span class="math notranslate nohighlight">\(R^2\)</span>,
 <img alt="_images/08b3da5544c7c2b53d362c3eccc9344aaec26b5b9aa60774eee5e523e5b73341.png" src="_images/08b3da5544c7c2b53d362c3eccc9344aaec26b5b9aa60774eee5e523e5b73341.png" />
 </div>
 </div>
+<p>Se aplicó el modelo de Suavizamiento Exponencial Simple (SES) sin librerías a la serie “Volatility_7d” utilizando diferentes valores del parámetro τ (horizonte de suavizamiento). Los resultados obtenidos fueron los siguientes:</p>
+<p>Para τ = 7, el modelo obtuvo un MAE de 0.002732 y un MAPE de 17.86, lo que indica un nivel moderado de error en la predicción de la volatilidad. Sin embargo, el coeficiente de determinación R² fue negativo (-0.0078), lo que sugiere que el modelo no explicó adecuadamente la variabilidad de los datos. El p-valor de la prueba de Ljung-Box (0.1496) indicó que los residuos no presentaban una autocorrelación significativa. Por otro lado, la prueba BDS (p-valor = 0.0) reveló la presencia de no linealidad en los residuos, mientras que la prueba de Jarque-Bera (p-valor = 0.7738) sugirió que los residuos seguían aproximadamente una distribución normal.</p>
+<p>Para τ = 14, el modelo mostró una ligera mejora en términos de error, con un MAE de 0.002634 y un MAPE de 22.40. El R² aumentó a 0.3451, lo que indica una mejor capacidad del modelo para explicar la variabilidad de los datos. Sin embargo, la prueba de Ljung-Box arrojó un p-valor de 0.000327, lo que indica la presencia de autocorrelación en los residuos. La prueba BDS (p-valor = 4.17e-07) confirmó la existencia de no linealidad, mientras que la prueba de Jarque-Bera (p-valor = 0.5214) indicó que los residuos eran aproximadamente normales.</p>
+<p>Para τ = 21, el modelo presentó un MAE de 0.006694 y un MAPE de 25.51, con un R² significativamente mayor (0.6829), lo que indica un mejor ajuste a la variabilidad de los datos. Sin embargo, el p-valor de la prueba de Ljung-Box (0.000001) evidenció una fuerte autocorrelación en los residuos. La prueba BDS (p-valor = 1.10e-31) confirmó una alta presencia de no linealidad, mientras que la prueba de Jarque-Bera (p-valor = 0.6620) sugirió que los residuos seguían aproximadamente una distribución normal.</p>
+<p>Para τ = 28, el modelo mostró un MAE de 0.007826 y un MAPE de 21.83, con un R² de 0.4059. Aunque la capacidad explicativa del modelo fue superior a τ = 7, la prueba de Ljung-Box (p-valor = 0.0) confirmó una fuerte autocorrelación en los residuos. La prueba BDS (p-valor = 5.80e-08) indicó la presencia de no linealidad, mientras que la prueba de Jarque-Bera (p-valor = 0.2763) sugirió que los residuos eran aproximadamente normales.</p>
+<p>En conclusión, el SES con τ = 21 presentó el mejor ajuste en términos de R², aunque con un error de predicción más alto y una fuerte autocorrelación en los residuos. El SES con τ = 14 representó un mejor equilibrio entre precisión y estabilidad, pero aún mostró problemas de autocorrelación y no linealidad. Dado que todos los modelos presentaron residuos con estructura dependiente y no linealidad, se recomienda explorar modelos más avanzados, como GARCH o enfoques no lineales, para mejorar la predicción de la volatilidad de “Volatility_7d”.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Simple Exponential Smoothing (Sin Librería) para la columna &quot;Volatility_14d&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Simple Exponential Smoothing (Sin Librería) para la columna &quot;Volatility_14d&quot;</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
@@ -1358,9 +1375,15 @@ MAPE, MAE, RMSE, MSE, <span class="math notranslate nohighlight">\(R^2\)</span>,
 <img alt="_images/86e63e6b8d560da531037602ac77e521af617c30df998f02b7d5c661b3a51c36.png" src="_images/86e63e6b8d560da531037602ac77e521af617c30df998f02b7d5c661b3a51c36.png" />
 </div>
 </div>
+<p>Se aplicó el modelo de Suavizamiento Exponencial Simple (SES) sin librerías a la serie “Volatility_14d” utilizando diferentes valores del parámetro τ (horizonte de suavizamiento). Los resultados obtenidos fueron los siguientes:</p>
+<p>Para τ = 7, el modelo presentó un MAE de 0.000346 y un MAPE de 2.07, indicando un error bajo en la predicción. Sin embargo, el coeficiente de determinación R² fue relativamente bajo (0.1060), lo que sugiere que el modelo no explicó completamente la variabilidad de la serie. El p-valor de la prueba de Ljung-Box (0.4587) indicó que no había autocorrelación significativa en los residuos, mientras que la prueba BDS (p-valor = 0.0548) mostró una ligera evidencia de no linealidad. La prueba de Jarque-Bera (p-valor = 0.5921) sugirió que los residuos seguían aproximadamente una distribución normal.</p>
+<p>Para τ = 14, el modelo mostró un aumento en el MAE (0.000455) y MAPE (2.68), aunque el R² mejoró ligeramente a 0.1901. La prueba de Ljung-Box (p-valor = 0.1508) indicó que no existía una autocorrelación significativa en los residuos. Sin embargo, la prueba BDS (p-valor = 5.79e-50) confirmó una fuerte presencia de no linealidad en la serie. La prueba de Jarque-Bera (p-valor = 0.5678) mostró que los residuos eran aproximadamente normales.</p>
+<p>Para τ = 21, el modelo experimentó un incremento considerable en el MAE (0.004176) y MAPE (12.58), pero con un R² significativamente mayor (0.7185), lo que indica un mejor ajuste a la variabilidad de los datos. No obstante, la prueba de Ljung-Box (p-valor = 0.000004) confirmó una fuerte autocorrelación en los residuos, mientras que la prueba BDS (p-valor = 5.60e-37) mostró una alta presencia de no linealidad. La prueba de Jarque-Bera (p-valor = 0.4858) sugirió que los residuos seguían aproximadamente una distribución normal.</p>
+<p>Para τ = 28, el modelo mostró un MAE de 0.004206 y un MAPE de 11.24, con un R² de 0.4670. Aunque el modelo mantuvo un nivel de precisión similar al caso de τ = 21, la prueba de Ljung-Box (p-valor = 0.000004) confirmó la presencia de autocorrelación en los residuos, y la prueba BDS (p-valor = 2.96e-05) indicó una reducción en la no linealidad en comparación con horizontes más cortos. Finalmente, la prueba de Jarque-Bera (p-valor = 0.7828) sugirió que los residuos eran aproximadamente normales.</p>
+<p>En conclusión, el SES con τ = 21 presentó el mejor ajuste en términos de R², aunque con un error de predicción más alto y una fuerte autocorrelación en los residuos. Por otro lado, el SES con τ = 7 mostró menor error de predicción pero un bajo R². Dado que todos los modelos presentaron residuos con estructura dependiente y no linealidad, se recomienda explorar modelos más avanzados, como GARCH o enfoques no lineales, para mejorar la predicción de la volatilidad de “Volatility_14d”.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Simple Exponential Smoothing (Sin Librería) para la columna &quot;Volatility_21d&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Simple Exponential Smoothing (Sin Librería) para la columna &quot;Volatility_21d&quot;</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
@@ -1586,9 +1609,14 @@ MAPE, MAE, RMSE, MSE, <span class="math notranslate nohighlight">\(R^2\)</span>,
 <img alt="_images/2db10bfb4e23c62076ab0ba3f787f967b5136dafd2f7d591fa845bbcd0d24c03.png" src="_images/2db10bfb4e23c62076ab0ba3f787f967b5136dafd2f7d591fa845bbcd0d24c03.png" />
 </div>
 </div>
+<p>Se aplicó el modelo de Suavizamiento Exponencial Simple (SES) sin librerías a la serie “Volatility_21d” utilizando diferentes valores del parámetro τ (horizonte de suavizamiento). Los resultados obtenidos fueron los siguientes:</p>
+<p>Para τ = 14, el modelo presentó un MAE de 0.000439 y un MAPE de 2.61, indicando un error bajo en la predicción. El coeficiente de determinación R² fue de 0.3175, lo que sugiere que el modelo explicó moderadamente la variabilidad de la serie. El p-valor de la prueba de Ljung-Box (0.2209) indicó que no había autocorrelación significativa en los residuos. Por otro lado, la prueba BDS (p-valor = 0.0822) mostró una ligera evidencia de no linealidad, mientras que la prueba de Jarque-Bera (p-valor = 0.6058) sugirió que los residuos seguían aproximadamente una distribución normal.</p>
+<p>Para τ = 21, el modelo mostró un aumento en el MAE (0.003218) y MAPE (11.02), pero con un R² significativamente mayor (0.7259), lo que indica un mejor ajuste a la variabilidad de los datos. Sin embargo, la prueba de Ljung-Box (p-valor = 0.000002) confirmó una fuerte autocorrelación en los residuos. La prueba BDS (p-valor = 1.80e-57) evidenció una alta presencia de no linealidad en la serie, mientras que la prueba de Jarque-Bera (p-valor = 0.4869) mostró que los residuos eran aproximadamente normales.</p>
+<p>Para τ = 28, el modelo presentó un MAE de 0.003462 y un MAPE de 9.99, con un R² de 0.7074. Aunque el modelo mantuvo un nivel de precisión similar al caso de τ = 21, la prueba de Ljung-Box (p-valor = 0.0020) confirmó la presencia de autocorrelación en los residuos, y la prueba BDS (p-valor = 0.0589) indicó una leve reducción en la no linealidad en comparación con horizontes más cortos. Finalmente, la prueba de Jarque-Bera (p-valor = 0.7294) sugirió que los residuos eran aproximadamente normales.</p>
+<p>En conclusión, el SES con τ = 21 presentó el mejor ajuste en términos de R², aunque con un error de predicción más alto y una fuerte autocorrelación en los residuos. El SES con τ = 14 mostró menor error de predicción pero un menor R². Dado que todos los modelos presentaron residuos con estructura dependiente y no linealidad, se recomienda explorar modelos más avanzados, como GARCH o enfoques no lineales, para mejorar la predicción de la volatilidad de “Volatility_21d”.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Simple Exponential Smoothing (Sin Librería) para la columna &quot;Volatility_28d&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Simple Exponential Smoothing (Sin Librería) para la columna &quot;Volatility_28d&quot;</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
@@ -1814,13 +1842,18 @@ MAPE, MAE, RMSE, MSE, <span class="math notranslate nohighlight">\(R^2\)</span>,
 <img alt="_images/2777f2f10211a9bac018323d5a8938644fa7effb68e5c1fb970db5bb0bb9d0f4.png" src="_images/2777f2f10211a9bac018323d5a8938644fa7effb68e5c1fb970db5bb0bb9d0f4.png" />
 </div>
 </div>
+<p>Se aplicó el modelo de Suavizamiento Exponencial Simple (SES) sin librerías a la serie “Volatility_28d” utilizando diferentes valores del parámetro τ (horizonte de suavizamiento). Los resultados obtenidos fueron los siguientes:</p>
+<p>Para τ = 14, el modelo presentó un MAE de 0.001021 y un MAPE de 5.99, indicando un error relativamente bajo en la predicción. El coeficiente de determinación R² fue de 0.5292, lo que sugiere que el modelo explicó moderadamente la variabilidad de la serie. El p-valor de la prueba de Ljung-Box (0.0256) indicó que existía una ligera autocorrelación en los residuos. Por otro lado, la prueba BDS (p-valor = 0.0684) mostró una ligera evidencia de no linealidad, mientras que la prueba de Jarque-Bera (p-valor = 0.8324) sugirió que los residuos seguían aproximadamente una distribución normal.</p>
+<p>Para τ = 21, el modelo mostró un aumento en el MAE (0.003218) y MAPE (11.02), pero con un R² significativamente mayor (0.7259), lo que indica un mejor ajuste a la variabilidad de los datos. Sin embargo, la prueba de Ljung-Box (p-valor = 0.000002) confirmó una fuerte autocorrelación en los residuos. La prueba BDS (p-valor = 1.80e-57) evidenció una alta presencia de no linealidad en la serie, mientras que la prueba de Jarque-Bera (p-valor = 0.4869) mostró que los residuos eran aproximadamente normales.</p>
+<p>Para τ = 28, el modelo presentó un MAE de 0.003462 y un MAPE de 9.99, con un R² de 0.7074. Aunque el modelo mantuvo un nivel de precisión similar al caso de τ = 21, la prueba de Ljung-Box (p-valor = 0.0020) confirmó la presencia de autocorrelación en los residuos, y la prueba BDS (p-valor = 0.0589) indicó una leve reducción en la no linealidad en comparación con horizontes más cortos. Finalmente, la prueba de Jarque-Bera (p-valor = 0.7294) sugirió que los residuos eran aproximadamente normales.</p>
+<p>En conclusión, el SES con τ = 21 presentó el mejor ajuste en términos de R², aunque con un error de predicción más alto y una fuerte autocorrelación en los residuos. El SES con τ = 14 mostró menor error de predicción pero un menor R². Dado que todos los modelos presentaron residuos con estructura dependiente y no linealidad, se recomienda explorar modelos más avanzados, como GARCH o enfoques no lineales, para mejorar la predicción de la volatilidad de “Volatility_28d”.</p>
 </section>
-<section id="simple-exponential-smoothing-con-libreria">
-<h2>Simple Exponential Smoothing (con librería)<a class="headerlink" href="#simple-exponential-smoothing-con-libreria" title="Link to this heading">#</a></h2>
+<section id="simple-exponential-smoothing-usando-statsmodels-tsa-holtwinters">
+<h2>Simple Exponential Smoothing (usando statsmodels.tsa.holtwinters)<a class="headerlink" href="#simple-exponential-smoothing-usando-statsmodels-tsa-holtwinters" title="Link to this heading">#</a></h2>
 <p>Price</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -2084,7 +2117,7 @@ Métricas del modelo (Entrenamiento) + Pruebas de hipótesis:
 <p>Retorno Acumulado</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -2348,7 +2381,7 @@ Métricas del modelo (Entrenamiento) + Pruebas de hipótesis:
 <p>Volatilidad 07 dias.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -2612,7 +2645,7 @@ Métricas del modelo (Entrenamiento) + Pruebas de hipótesis:
 <p>Volatilidad 14 días</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -2876,7 +2909,7 @@ Métricas del modelo (Entrenamiento) + Pruebas de hipótesis:
 <p>Volatilidad 21 días</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -3140,7 +3173,7 @@ Métricas del modelo (Entrenamiento) + Pruebas de hipótesis:
 <p>Volatilidad 28 días</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -3401,12 +3434,16 @@ Métricas del modelo (Entrenamiento) + Pruebas de hipótesis:
 <img alt="_images/a30a6c7d7891fca801d7b718a1afe4c305317ba2d51ee17c4b3dcac67ddc4679.png" src="_images/a30a6c7d7891fca801d7b718a1afe4c305317ba2d51ee17c4b3dcac67ddc4679.png" />
 </div>
 </div>
+<p>El modelo SES logró valores altos de R² en todas las series, lo que indica un buen ajuste a los datos históricos.</p>
+<p>Sin embargo, la prueba de Ljung-Box mostró que los residuos presentan autocorrelación en todas las series, lo que indica que el modelo no captura completamente la estructura temporal de los datos.</p>
+<p>La prueba de Jarque-Bera sugiere que los residuos no siguen una distribución normal, lo que puede afectar la validez de ciertos supuestos estadísticos.</p>
+<p>Se recomienda evaluar modelos adicionales, como ARIMA o GARCH, para mejorar la captura de la dependencia temporal y volatilidad en los datos.</p>
 </section>
 <section id="double-exponential-smoothing-sin-libreria">
 <h2>Double Exponential Smoothing (Sin librería)<a class="headerlink" href="#double-exponential-smoothing-sin-libreria" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;Ejercicio_02_SES_DES.ipynb</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;Ejercicio_02_SES_DES.ipynb</span>
 
 <span class="sd">Automatically generated by Colab.</span>
 
@@ -7181,13 +7218,50 @@ Métrica  Método Estándar  Método Rolling
 <img alt="_images/3c2aca404e9e66d4b039b018f019e4921664c5749e00d59ecf2dcf23a546d781.png" src="_images/3c2aca404e9e66d4b039b018f019e4921664c5749e00d59ecf2dcf23a546d781.png" />
 </div>
 </div>
+<p><strong>Análisis de resultados de suavización exponencial doble para precio</strong></p>
+<p>Los resultados mostraron que los mejores parámetros de suavización, Alpha y Beta, variaron significativamente dependiendo del horizonte de predicción (τ). Para los diferentes períodos analizados, los valores seleccionados de Alpha y Beta fueron clave para optimizar la precisión de las predicciones del precio. En particular, se observó que, para τ = 7, los mejores parámetros fueron Alpha = 0.3 y Beta = 0.5, lo que permitió una predicción más precisa en comparación con otros valores de estos parámetros.</p>
+<p>En general, los resultados de validación reflejaron que el modelo de suavización exponencial doble, utilizando estos parámetros óptimos, mostró un rendimiento notablemente mejor que el método estándar en casi todos los casos. Por ejemplo, para τ = 7, el método Rolling mostró un MAPE de 3.93, ligeramente superior al 3.29 del método Estándar, pero con un desempeño más equilibrado en otras métricas. Sin embargo, el R² del método Rolling en este caso fue más negativo, indicando un modelo con mayor capacidad de ajuste en las predicciones, aunque aún con un margen de mejora.</p>
+<p>Al observar los valores de MAE y RMSE, el método Rolling también presentó menores errores, lo que indica una mejor capacidad predictiva en los casos de test. Por ejemplo, para τ = 14, el MAPE del modelo Rolling fue de 8.91, mientras que el del modelo Estándar alcanzó 12.75, lo que sugiere una mejora considerable en la precisión a medida que se ajustaban los parámetros.</p>
+<p>En cuanto al desempeño de los residuos en entrenamiento, se identificó que el modelo de suavización exponencial doble fue eficiente en términos de ajuste, ya que los residuos mostraron baja autocorrelación y alta estabilidad, con un valor de R² cercano a 1 en la mayoría de los casos. Además, las pruebas de autocorrelación (Ljung-Box) y normalidad (Jarque-Bera) mostraron p-valores significativos, lo que respalda la efectividad del modelo.</p>
+<p>En resumen, el análisis concluyó que la suavización exponencial doble con parámetros bien seleccionados (Alpha y Beta) permitió mejoras notables en las predicciones de precios, con el modelo Rolling siendo generalmente más robusto que el Estándar. Sin embargo, aún se observan áreas para optimizar el ajuste, especialmente en horizontes más largos, donde los errores del modelo pueden aumentar.</p>
+<p>*<em>Análisis de resultados de suavización exponencial doble para Cumulative_Return</em></p>
+<p>los resultados revelan varios hallazgos clave sobre el desempeño del modelo:</p>
+<p><strong>Para τ = 7</strong> el modelo con los mejores parámetros seleccionados (Alpha = 0.3, Beta = 0.5) tuvo un rendimiento razonablemente bueno, con un MAPE de 0.1525 y un R2 negativo de -0.4125, lo que indica que, aunque el modelo realiza predicciones, no es capaz de explicar bien la variabilidad de los datos.
+En la evaluación de residuos en entrenamiento, el modelo mostró un excelente ajuste, con un R2 de 0.9997, lo que sugiere que los datos de entrenamiento fueron bien ajustados.</p>
+<p>En el conjunto de prueba, el modelo estándar obtuvo un MAPE de 0.1447, superior al modelo Rolling (0.1600), aunque ambos métodos tuvieron un rendimiento similar en términos de MAE y RMSE.</p>
+<p><strong>Para τ = 14</strong> Los mejores parámetros fueron Alpha = 0.1 y Beta = 0.1, con un MAPE de 0.4564, indicando una mayor dificultad del modelo para ajustarse a los datos en comparación con τ = 7. Además, el valor de R2 negativo (-1.5523) sugiere un pobre ajuste.</p>
+<p>El modelo Rolling mostró una mejora en comparación con el estándar, obteniendo un MAPE de 0.2067, lo que indica una mejor capacidad predictiva en términos de generalización.</p>
+<p>En el conjunto de prueba, el MAPE del modelo estándar fue más alto (0.6174), mientras que el modelo Rolling obtuvo un MAPE de 0.3950, lo que sugiere que el modelo Rolling tiene una mejor capacidad predictiva en este caso.</p>
+<p><strong>Para τ = 21</strong> El modelo con los mejores parámetros seleccionados (Alpha = 0.9, Beta = 0.9) obtuvo un MAPE de 0.1645, lo que refleja un buen rendimiento en la validación, con un R2 positivo de 0.6970, indicando una capacidad razonable para capturar la variabilidad de los datos.</p>
+<p>En el conjunto de prueba, el modelo estándar obtuvo un MAPE de 0.3551 y un R2 de -7.2165, lo que refleja un rendimiento moderado y un ajuste no tan efectivo. En contraste, el modelo Rolling mostró un MAPE más bajo (0.2052) y un R2 mucho mejor (-1.4726), indicando un mejor desempeño general.</p>
+<p><strong>Para τ = 28</strong> El mejor modelo fue el que usó Alpha = 0.5 y Beta = 0.3, con un MAPE de 0.1265 y un R2 positivo de 0.8374, lo que sugiere un muy buen ajuste en la validación.</p>
+<p>En el conjunto de prueba, el modelo estándar tuvo un MAPE alto de 1.1633 y un R2 negativo (-15.6634), lo que indica una mala capacidad predictiva en este conjunto de datos.</p>
+<p>Sin embargo, el modelo Rolling se destacó significativamente, con un MAPE de 0.1475, un MAE bajo de 0.0349, y un R2 positivo de 0.5638, lo que demuestra que el modelo Rolling fue mucho más efectivo en términos de predicción.</p>
+<p><strong>Análisis de suavización exponencial doble para las series de datos de volatilidad</strong>
+(Volatility_7d, Volatility_14d, Volatility_21d y Volatility_28d) con diferentes valores de τ (7, 14, 21, 28)</p>
+<p><strong>Volatility_7d:</strong>
+Para τ = 7, Los mejores parámetros seleccionados fueron Alpha = 0.3 y Beta = 0.7, y el modelo obtuvo un MAPE de 52.0148, con un R2 negativo de -1.3974. Esto indica que el modelo no logró ajustarse adecuadamente a los datos de volatilidad en este intervalo de tiempo.</p>
+<p>El rendimiento en el conjunto de prueba fue débil, con un MAPE de 14.6324 y un R2 de 0.0388, reflejando una capacidad predictiva limitada.</p>
+<p>Comparando el método estándar con el método Rolling, el método estándar obtuvo mejores resultados en términos de MAPE, MAE y R2, lo que sugiere que el modelo Rolling no era tan eficiente en este caso.</p>
+<p><strong>Volatility_14d:</strong>
+Para τ = 14, Los mejores parámetros fueron Alpha = 0.5 y Beta = 0.9, con un MAPE de 40.3978 y un R2 negativo de -3.9756. Esto mostró que el modelo tiene dificultades para capturar la variabilidad de los datos a largo plazo.
+El modelo Rolling presentó un MAPE más bajo (27.9282) y un R2 mejor (0.5590), lo que indica una mayor capacidad predictiva en comparación con el método estándar, que tuvo un MAPE de 48.9820 y un R2 negativo.</p>
+<p>Esto sugiere que el modelo Rolling tiene un rendimiento superior en la generalización de los datos.</p>
+<p><strong>Volatility_21d:</strong>
+Para τ = 21, Los mejores parámetros fueron Alpha = 0.5 y Beta = 0.3, con un MAPE de 7.2635 y un R2 de 0.7719 en la validación, lo que refleja un buen ajuste a los datos.</p>
+<p>El modelo Rolling mostró un MAPE de 3.8090, MAE de 0.0014 y R2 de 0.8274 en el conjunto de prueba, lo que indica un excelente rendimiento comparado con el modelo estándar, que tuvo un MAPE de 12.1233 y un R2 de -0.6146.</p>
+<p>Los resultados indican que el modelo Rolling fue mucho más efectivo en este caso, mejorando significativamente la capacidad predictiva.</p>
+<p><strong>Volatility_28d:</strong>
+Para τ = 28, El modelo con los mejores parámetros seleccionados (Alpha = 0.1, Beta = 0.9) alcanzó un MAPE de 7.0601 en la validación, con un R2 de 0.8332, lo que refleja un buen rendimiento para modelar la volatilidad a largo plazo.
+El método Rolling mostró un MAPE de 13.7125 y un R2 positivo de 0.5108, superando con creces al método estándar, que obtuvo un MAPE muy alto de 67.3095 y un R2 negativo de -11.5921 en el conjunto de prueba.
+Este comportamiento resalta la ventaja del enfoque Rolling, que logra una mejor generalización a los datos de prueba, mostrando que el modelo Rolling puede ser más robusto que el método estándar.</p>
 </section>
 <section id="double-exponential-smoothing-usando-statsmodels-tsa-holtwinters">
 <h2>Double Exponential Smoothing (Usando statsmodels.tsa.holtwinters)<a class="headerlink" href="#double-exponential-smoothing-usando-statsmodels-tsa-holtwinters" title="Link to this heading">#</a></h2>
 <p>Variable Precio: Ventana 07 dias - Primera parte.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
  
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -7324,7 +7398,7 @@ R² Score: -9.6062
 <p>Variable Precio: Ventana 07 dias - Segunda parte.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
  
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -7443,7 +7517,7 @@ R² Score: -9.6062
 <p>Variable Precio: Ventana 14 dias - Primera parte.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
  
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -7580,7 +7654,7 @@ R² Score: 0.6221
 <p>Variable Precio: Ventana 14 dias - Segunda parte.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
  
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -7699,7 +7773,7 @@ R² Score: 0.6221
 <p>Variable Precio: Ventana 21 dias - Primera parte.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
  
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -7818,19 +7892,6 @@ R² Score: 0.6221
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;MSE: </span><span class="si">{</span><span class="n">mse</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;RMSE: </span><span class="si">{</span><span class="n">rmse</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;R² Score: </span><span class="si">{</span><span class="n">r2</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-
-<span class="c1"># Cálculo de métricas de error</span>
-<span class="n">mae</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">val_pred</span><span class="p">)</span>
-<span class="n">mape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">((</span><span class="n">val</span> <span class="o">-</span> <span class="n">val_pred</span><span class="p">)</span> <span class="o">/</span> <span class="n">val</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span>  
-<span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">val_pred</span><span class="p">)</span>
-<span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mse</span><span class="p">)</span>
-<span class="n">r2</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">val_pred</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;MAPE: </span><span class="si">{</span><span class="n">mape</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;MAE: </span><span class="si">{</span><span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="n">val_pred</span><span class="p">)</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;MSE: </span><span class="si">{</span><span class="n">mse</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;RMSE: </span><span class="si">{</span><span class="n">rmse</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;R² Score: </span><span class="si">{</span><span class="n">r2</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -7854,7 +7915,7 @@ R² Score: 0.5888
 <p>Variable Precio: Ventana 21 dias - Segunda parte.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
  
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -7973,7 +8034,7 @@ R² Score: 0.5888
 <p>Variable Precio: Ventana 28 dias - Primera parte.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
  
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -8110,7 +8171,7 @@ R² Score: 0.6346
 <p>Precio: Ventana 28 dias - Segunda parte.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
  
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -8226,10 +8287,30 @@ R² Score: 0.6346
 <img alt="_images/6b5098bbbf22e644e7ba4f3a93d4d8217825326c485227d0702f53cca7d27c34.png" src="_images/6b5098bbbf22e644e7ba4f3a93d4d8217825326c485227d0702f53cca7d27c34.png" />
 </div>
 </div>
+<p>El modelo de suavización exponencial doble mostró un buen rendimiento en ventanas de predicción a corto plazo, pero su capacidad de ajuste disminuyó a medida que la ventana se alargaba. A continuación, se resumen los resultados más destacados:</p>
+<p>Ventana de 7 días:</p>
+<p>MAPE: 1.61%, lo que indica un buen rendimiento a corto plazo.
+R² Score: -9.6062, sugiriendo que el modelo no captura bien la variabilidad de los datos, lo que podría deberse a alta volatilidad.
+Los residuos mostraron una estructura dependiente, lo que sugiere que el modelo podría beneficiarse de ajustes adicionales.</p>
+<p>Ventana de 14 días:</p>
+<p>MAPE: 2.30%, con un rendimiento aún aceptable.
+R² Score: 0.6221, mejorando en comparación con la ventana de 7 días y mostrando una capacidad razonable para capturar la variabilidad de los datos.
+Los residuos fueron más favorables que en la ventana de 7 días.</p>
+<p>Ventana de 21 días:</p>
+<p>MAPE: 3.96%, con un error mayor esperado a medida que la ventana aumenta.
+R² Score: 0.5888, lo que indica un ajuste limitado cuando se predicen precios a largo plazo.
+Los residuos mostraron una estructura dependiente similar a los modelos anteriores.</p>
+<p>Ventana de 28 días:</p>
+<p>MAPE: 3.98%, cercano al de 21 días, sin mejoras significativas.
+R² Score: 0.6346, el más alto de los cuatro, pero aún limitado por la volatilidad de los precios a largo plazo.
+Los residuos seguían siendo no aleatorios, lo que sugiere que el modelo podría necesitar ajustes.</p>
+<p>De los resultados se puede observar que para ventanas de predicción más cortas (como 7 y 14 días), el modelo tiene un rendimiento razonablemente bueno, pero aún presenta problemas para capturar la variabilidad de los datos, como se observa en los valores de R² negativos o bajos.</p>
+<p>A medida que la ventana de predicción aumenta (21 y 28 días), el modelo comienza a mostrar un mayor error en términos de MAPE, y aunque el R² mejora ligeramente, sigue siendo bajo, lo que indica que el modelo tiene dificultades para predecir a largo plazo con precisión.</p>
+<p>Los residuos de los modelos presentan una estructura dependiente, lo que sugiere que el modelo no es capaz de captar todos los patrones o la volatilidad en los datos, y esto podría mejorar con ajustes adicionales en el modelo o con el uso de modelos más complejos.</p>
 <p>Retorno Acumulado: Ventana 07 dias - Primera parte.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
  
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -8365,7 +8446,7 @@ R² Score: -3.7858
 <p>Retorno Acumulado: Ventana 07 dias - Segunda parte.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
  
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -8481,7 +8562,7 @@ R² Score: -3.7858
 <p>Retorno Acumulado: Ventana 14 dias - Primera parte.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
  
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -8619,7 +8700,7 @@ R² Score: -0.3742
 <p>Retorno Acumulado: Ventana 14 dias - Segunda parte.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
  
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -8735,7 +8816,7 @@ R² Score: -0.3742
 <p>Retorno Acumulado: Ventana 21 dias - Primera parte.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
  
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -8873,7 +8954,7 @@ R² Score: -0.4534
 <p>Retorno Acumulado: Ventana 21 dias - Segunda parte.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
  
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -8988,7 +9069,7 @@ R² Score: -0.4534
 <p>Retorno Acumulado: Ventana 28 dias - Primera parte.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
  
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -9127,7 +9208,7 @@ R² Score: -1.4686
 <p>Retorno Acumulado: Ventana 28 dias - Segunda parte.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
  
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -9239,10 +9320,36 @@ R² Score: -1.4686
 <img alt="_images/e2909b3565ee89d04ee7d959cc4fb43c8517b2d629a57569c92244e6ba2808d4.png" src="_images/e2909b3565ee89d04ee7d959cc4fb43c8517b2d629a57569c92244e6ba2808d4.png" />
 </div>
 </div>
+<p>El análisis del retorno acumulado utilizando el modelo de suavización exponencial doble en diferentes ventanas de tiempo (7, 14, 21 y 28 días) muestra los siguientes resultados:</p>
+<p>Ventana de 7 días:</p>
+<p>MAPE: 0.05%, un error muy bajo, indicando un excelente ajuste a corto plazo.
+R² Score: -3.7858, lo que sugiere que el modelo no captura bien la variabilidad de los datos a pesar del bajo MAPE, lo que podría deberse a la alta volatilidad de los datos.
+Evaluación estadística:
+Ljung-Box (p-value): 1.51e-127, un valor extremadamente bajo, indicando que los residuos no son aleatorios.
+Jarque-Bera (p-value): 0.0, lo que sugiere que los residuos no siguen una distribución normal.</p>
+<p>Ventana de 14 días:</p>
+<p>MAPE: 0.15%, manteniendo un buen rendimiento aunque el error es algo mayor que en el caso de 7 días.
+R² Score: -0.3742, mejorando respecto a la ventana de 7 días, pero sigue siendo negativo, lo que indica una capacidad limitada para explicar la variabilidad de los datos.
+Evaluación estadística:
+Ljung-Box (p-value): 1.51e-127, nuevamente un p-valor extremadamente bajo.
+Jarque-Bera (p-value): 0.0, los residuos no son normales.</p>
+<p>Ventana de 21 días:</p>
+<p>MAPE: 0.31%, con un mayor error relativo en comparación con las ventanas anteriores.
+R² Score: -0.4534, lo que muestra una capacidad aún más limitada para ajustar los datos, con un valor negativo.
+Evaluación estadística:
+Los residuos siguen teniendo una dependencia estructural, como se observa en los p-valores de los test.</p>
+<p>Ventana de 28 días:</p>
+<p>MAPE: 0.46%, el error relativo sigue siendo bajo pero aumenta con el tamaño de la ventana.
+R² Score: -1.4686, el peor R² entre las cuatro ventanas, lo que indica una capacidad muy limitada para ajustar los datos en un horizonte de predicción aún más largo.</p>
+<p>Evaluación estadística:</p>
+<p>Los residuos siguen mostrando no aleatoriedad y no siguen una distribución normal, como se refleja en los p-valores bajos de los tests.</p>
+<p>En términos generales, la ventana de 7 días muestra el mejor rendimiento con el MAPE más bajo, pero los residuos no son completamente aleatorios, lo que sugiere que el modelo no ajusta bien a la estructura de los datos.</p>
+<p>Desempeño decreciente a medida que aumenta la ventana: El rendimiento del modelo disminuye con el aumento de la ventana, como se refleja en el aumento de MAPE y la disminución de R².</p>
+<p>Volatilidad y residuos: Los residuos no son aleatorios y no siguen una distribución normal en todas las ventanas, lo que sugiere que el modelo no captura todos los patrones en los datos y que podría beneficiarse de ajustes adicionales.</p>
 <p>Volatilidad: Ventana 07 días - Primera parte</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
  
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -9378,7 +9485,7 @@ R² Score: -15.1827
 <p>Volatilidad: Ventana 07 días - Segunda parte</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
  
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -9493,7 +9600,7 @@ R² Score: -15.1827
 <p>Volatilidad: Ventana 14 días - Primera parte</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
  
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -9629,7 +9736,7 @@ R² Score: -0.0069
 <p>Volatilidad: Ventana 14 días - Segunda parte</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
  
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -9744,7 +9851,7 @@ R² Score: -0.0069
 <p>Volatilidad: Ventana 21 días - Primera parte</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
  
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -9880,7 +9987,7 @@ R² Score: -9.2236
 <p>Volatilidad: Ventana 21 días - Segunda parte</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
  
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -9995,7 +10102,7 @@ R² Score: -9.2236
 <p>Volatilidad: Ventana 28 días - Primera parte</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
  
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -10131,7 +10238,7 @@ R² Score: -4.4975
 <p>Volatilidad: Ventana 28 días - Segunda parte</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
  
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -10243,13 +10350,41 @@ R² Score: -4.4975
 <img alt="_images/99678e910fd38897bd05fa42733e175a88b21fcb7e5c5ba38606a0a0cfeaa6ce.png" src="_images/99678e910fd38897bd05fa42733e175a88b21fcb7e5c5ba38606a0a0cfeaa6ce.png" />
 </div>
 </div>
+<p>El análisis de volatilidad con el modelo de suavización exponencial doble para diferentes ventanas de tiempo (7, 14, 21 y 28 días) muestra lo siguiente:</p>
+<p>Ventana de 7 días:</p>
+<p>MAPE: 77.38%, lo que indica un error extremadamente alto, lo que sugiere que el modelo no es adecuado para predecir la volatilidad a corto plazo.
+R² Score: -15.1827, un valor muy bajo, lo que indica que el modelo no puede explicar la variabilidad de los datos.</p>
+<p>Evaluación estadística:
+Ljung-Box (p-value): 0.0, lo que sugiere que los residuos no son aleatorios.
+Jarque-Bera (p-value): 0.0, lo que indica que los residuos no siguen una distribución normal.</p>
+<p>Ventana de 14 días:</p>
+<p>MAPE: 14.80%, que es mucho más bajo que el de 7 días, lo que muestra una mejora en el rendimiento.
+R² Score: -0.0069, una mejora pequeña pero aún negativa, lo que sugiere que el modelo sigue teniendo dificultades para capturar la variabilidad de los datos.</p>
+<p>Evaluación estadística:
+Ljung-Box (p-value): 9.20e-148, muy bajo, indicando que los residuos siguen una estructura dependiente.
+Jarque-Bera (p-value): 0.0, indicando que los residuos no son normales.</p>
+<p>Ventana de 21 días:</p>
+<p>MAPE: 53.54%, con un error alto, aunque menor que en la ventana de 7 días.
+R² Score: -9.2236, un valor negativo que muestra una mala capacidad del modelo para ajustar los datos.</p>
+<p>Evaluación estadística:
+Ljung-Box (p-value): 2.68e-156, lo que sugiere que los residuos siguen una estructura dependiente muy fuerte.
+Jarque-Bera (p-value): 0.0, indicando que los residuos no son distribuidos normalmente.
+Ventana de 28 días:</p>
+<p>MAPE: 45.45%, con un error aún alto, pero más bajo que en las ventanas anteriores.
+R² Score: -4.4975, lo que sigue indicando una capacidad limitada del modelo para capturar la variabilidad de los datos.
+Evaluación estadística:</p>
+<p>Ljung-Box (p-value): 1.99e-147, lo que nuevamente sugiere dependencia estructural en los residuos.
+Jarque-Bera (p-value): 0.0, lo que indica que los residuos no siguen una distribución normal.</p>
+<p>En términos generales, el modelo tiene un desempeño deficiente para predecir la volatilidad en todas las ventanas de tiempo. Los valores de MAPE son muy altos, especialmente en las ventanas de 7 y 21 días, lo que indica que el modelo no es adecuado para este tipo de predicción.</p>
+<p>Bajo ajuste del modelo: Los valores de R² son extremadamente bajos (negativos), lo que sugiere que el modelo tiene poca capacidad para explicar la variabilidad de los datos de volatilidad.</p>
+<p>Residuos no aleatorios: Los residuos en todos los casos muestran dependencia estructural, como lo indican los bajos p-valores en el Ljung-Box y Jarque-Bera, lo que indica que el modelo no captura completamente la dinámica de los datos.</p>
 </section>
 <section id="arima-sin-rolling">
 <h2>ARIMA (Sin Rolling)<a class="headerlink" href="#arima-sin-rolling" title="Link to this heading">#</a></h2>
 <p>Precio</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
  
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -10363,7 +10498,7 @@ Tamaño Test: 1001
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ajustar ARIMA sin Rolling con (p=1, d=1, q=2) en los datos log-transformados</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ajustar ARIMA sin Rolling con (p=1, d=1, q=2) en los datos log-transformados</span>
 <span class="n">model_log</span> <span class="o">=</span> <span class="n">ARIMA</span><span class="p">(</span><span class="n">train_log_price</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>  <span class="c1"># Se ajusta según ACF/PACF</span>
 <span class="n">fitted_model_log</span> <span class="o">=</span> <span class="n">model_log</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
 
@@ -10404,11 +10539,10 @@ Tamaño Test: 1001
 </div>
 </div>
 </div>
-<p>Los resultados muestran que el modelo tiene un error relativo significativo, con un MAPE de aproximadamente 45%, lo que indica que las predicciones tienen una desviación considerable respecto a los valores reales. Los errores absolutos y cuadráticos (MAE y RMSE) también son elevados, lo que sugiere que las predicciones, aunque cercanas en algunos casos, no son lo suficientemente precisas en general. Además, el R² negativo indica que el modelo no está explicando bien la variabilidad de la serie temporal, lo que sugiere que los datos no siguen el patrón esperado o que el modelo ARIMA no es el más adecuado para este conjunto de datos. En resumen, el modelo requiere mejoras y ajustes, o podría ser necesario probar con otros enfoques.</p>
 <p>Combinación de parámetros</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Función para calcular métricas y predicciones</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Función para calcular métricas y predicciones</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">calculate_metrics</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">train_data</span><span class="p">,</span> <span class="n">val_data</span><span class="p">):</span>
     <span class="n">fitted_model</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
     <span class="n">val_predictions</span> <span class="o">=</span> <span class="n">fitted_model</span><span class="o">.</span><span class="n">forecast</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">val_data</span><span class="p">))</span>
@@ -10482,11 +10616,10 @@ Tamaño Test: 1001
 </div>
 </div>
 </div>
-<p>El modelo ARIMA(3,1,1) muestra el mejor rendimiento, con el valor de MAPE más bajo (45.20%), lo que indica que las predicciones están más cercanas a los valores reales. Además, tiene un MAE de 9750, lo que significa que, en promedio, las predicciones se desvían en 9749 unidades del valor real. El RMSE es 17682, lo que refleja la magnitud de los errores, y el MSE es 3.12e+08, una medida de la variabilidad de los errores de predicción. El 𝑅2 de -0.336 indica que el modelo no explica una gran parte de la variabilidad de los datos, pero aún así tiene el mejor desempeño comparado con los otros modelos. Por lo tanto, ARIMA(2,1,1) es la mejor opción de modelo para las predicciones.</p>
 <p>Análisis de los residuos del modelo ARIMA aplicado al precio</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ajustar ARIMA(3, 1, 1) con los datos log-transformados</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ajustar ARIMA(3, 1, 1) con los datos log-transformados</span>
 <span class="n">model_log</span> <span class="o">=</span> <span class="n">ARIMA</span><span class="p">(</span><span class="n">train_log_price</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># Ajustar según ACF y PACF</span>
 <span class="n">fitted_model_log</span> <span class="o">=</span> <span class="n">model_log</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
 
@@ -10538,7 +10671,7 @@ Tamaño Test: 1001
 <p>En escala original</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ajustar ARIMA(3, 1, 1) con los datos log-transformados</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ajustar ARIMA(3, 1, 1) con los datos log-transformados</span>
 <span class="n">model_log</span> <span class="o">=</span> <span class="n">ARIMA</span><span class="p">(</span><span class="n">train_log_price</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># Ajustar según ACF y PACF</span>
 <span class="n">fitted_model_log</span> <span class="o">=</span> <span class="n">model_log</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
 
@@ -10590,11 +10723,9 @@ Tamaño Test: 1001
 </div>
 </div>
 </div>
-<p>Ljung-Box (Independencia): El p-valor es 1.490322e-07, que es muy bajo (mucho menor que 0.05). Esto sugiere que los residuos no son independientes. En otras palabras, hay autocorrelación en los residuos, lo que significa que el modelo no está capturando completamente la estructura de la serie temporal, y puede ser útil considerar un modelo diferente o ajustes adicionales.</p>
-<p>Jarque-Bera (Normalidad): El p-valor es 0.000000e+00, lo que indica que los residuos no siguen una distribución normal. Este resultado es típico en modelos financieros o series temporales con cambios abruptos, como los de los precios de activos financieros. Aunque no es un buen signo en términos de la validez del modelo, es común en ciertos tipos de series temporales.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generar predicciones en el conjunto de validación con los datos log-transformados</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generar predicciones en el conjunto de validación con los datos log-transformados</span>
 <span class="n">val_predictions_log</span> <span class="o">=</span> <span class="n">fitted_model_log</span><span class="o">.</span><span class="n">forecast</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">val_log_price</span><span class="p">))</span>
 
 <span class="c1"># Convertir las predicciones log-transformadas de vuelta a la escala original</span>
@@ -10628,10 +10759,29 @@ Tamaño Test: 1001
 <img alt="_images/ed9a536e3030e63ae47162553d055a12f4f71bb0be4e7e840c38434e70db5e2c.png" src="_images/ed9a536e3030e63ae47162553d055a12f4f71bb0be4e7e840c38434e70db5e2c.png" />
 </div>
 </div>
+<p>El análisis del modelo ARIMA para la predicción de precios con una ventana de 7 días muestra lo siguiente:</p>
+<p>MAPE (Error absoluto porcentual medio): 45.21%, lo que indica que el modelo presenta un error relativamente alto, sugiriendo que no es muy preciso para predecir los precios.
+MAE (Error absoluto medio): 9,751.35, lo que refleja que el modelo tiene un error significativo en términos absolutos.</p>
+<p>RMSE (Raíz del error cuadrático medio): 17,684.04, lo que también indica que los errores son bastante grandes, sugiriendo que el modelo no es capaz de ajustar bien a los datos.
+MSE (Error cuadrático medio): 312,725,200,000, otro indicador de que el modelo no está realizando una predicción precisa.</p>
+<p>R² Score: -0.3364, un valor negativo, lo que indica que el modelo no explica bien la variabilidad de los datos y que podría ser inadecuado para este tipo de predicción.</p>
+<p>Desempeño de diferentes configuraciones ARIMA:</p>
+<p>ARIMA(2,1,1): Este modelo tiene el MAPE más bajo (45.206%) y el R² más cercano a -0.3363, lo que sugiere que es ligeramente mejor que las demás configuraciones.</p>
+<p>ARIMA(1,1,3): El rendimiento es muy similar al de ARIMA(2,1,1) con un MAPE de 45.216% y un R² de -0.3368.
+ARIMA(1,1,1) y ARIMA(2,1,2): Ambas configuraciones tienen un MAPE de 45.216% y 45.219%, respectivamente, y muestran resultados muy cercanos a los otros modelos en cuanto a la capacidad de ajuste.</p>
+<p>ARIMA(3,1,1): Este modelo tiene el segundo mejor MAPE (45.203%) y un R² de -0.3362, lo que sugiere que también es bastante efectivo.</p>
+<p>ARIMA(3,1,3): Este modelo tiene el MAPE más alto (45.228%) y el R² más bajo (-0.3374), lo que indica que su rendimiento es ligeramente peor que las demás configuraciones.</p>
+<p>Pruebas estadísticas:
+Ljung-Box (Independencia): El p-valor de 0.0609 (en escala logarítmica) es relativamente alto, lo que sugiere que no hay evidencia fuerte de autocorrelación en los residuos, pero aún es cercano al umbral de significancia.
+Jarque-Bera (Normalidad): El p-valor es 0.0, lo que indica que los residuos no siguen una distribución normal, lo que podría sugerir que el modelo no está ajustando adecuadamente los datos.</p>
+<p>Escala original:
+Ljung-Box (Independencia): El p-valor de 1.49e-07 indica que hay evidencia fuerte de dependencia en los residuos, lo que sugiere que el modelo podría no estar capturando toda la estructura de los datos correctamente.
+Jarque-Bera (Normalidad): El p-valor de 0.0 sigue confirmando que los residuos no son normales, lo que sugiere que el modelo podría necesitar ajustes.</p>
+<p>En general, se puede decir que el modelo ARIMA tiene un desempeño aceptable en términos de MAPE, pero los resultados del R² negativo y las pruebas de residuos indican que el modelo no captura adecuadamente la variabilidad de los datos. Los residuos muestran dependencia y no siguen una distribución normal, lo que sugiere que el modelo podría beneficiarse de ajustes adicionales, o bien, podría no ser el enfoque más adecuado para estos datos. Sin embargo, la configuración ARIMA(2,1,1) parece ser la que mejor se ajusta a los datos, con el menor MAPE y un R² relativamente más alto.</p>
 <p>Retorno Acumulado</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
  
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -10755,17 +10905,6 @@ Tamaño Test: 1001
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
 <span class="c1"># -------------------------------------------------------------------------</span>
-<span class="c1"># 5) ACF de los residuos del conjunto de TEST</span>
-<span class="c1"># -------------------------------------------------------------------------</span>
-<span class="n">residuals_test</span> <span class="o">=</span> <span class="n">test</span><span class="p">[</span><span class="s2">&quot;Cumulative_Return&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">val_predictions</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
-<span class="n">acf_vals_test</span> <span class="o">=</span> <span class="n">acf</span><span class="p">(</span><span class="n">residuals_test</span><span class="p">,</span> <span class="n">nlags</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">31</span><span class="p">),</span> <span class="n">acf_vals_test</span><span class="p">,</span> <span class="n">basefmt</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;ACF de Residuos (Test) - ARIMA(3,1,1)&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="c1"># -------------------------------------------------------------------------</span>
 <span class="c1"># 6) Pruebas de hipótesis sobre los residuos de ENTRENAMIENTO</span>
 <span class="c1"># -------------------------------------------------------------------------</span>
 <span class="c1"># Residuos de entrenamiento</span>
@@ -10809,8 +10948,7 @@ Métricas del modelo ARIMA(3, 1, 1):
 4     R^2 -1.824626
 </pre></div>
 </div>
-<img alt="_images/9670d86e6c3030fbfa5e7bfd773eff198b715ae5eded1345bf514671f2453bbf.png" src="_images/9670d86e6c3030fbfa5e7bfd773eff198b715ae5eded1345bf514671f2453bbf.png" />
-<img alt="_images/12a98bc354eb2b9efd70c0efb7658b5777d6b3de57b1eb119017bb51004b1fe0.png" src="_images/12a98bc354eb2b9efd70c0efb7658b5777d6b3de57b1eb119017bb51004b1fe0.png" />
+<img alt="_images/62a012708d552a943ced30093543f4ea1b2337e7135a744ed59e262933846df7.png" src="_images/62a012708d552a943ced30093543f4ea1b2337e7135a744ed59e262933846df7.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Métricas del modelo (Entrenamiento) + Pruebas de hipótesis:
        MAPE       MAE      RMSE       MSE        R2  Ljung-Box p-value  \
 0  5.667123  1.286337  1.543317  2.381827 -1.824626       5.071925e-19   
@@ -10821,10 +10959,12 @@ Métricas del modelo ARIMA(3, 1, 1):
 </div>
 </div>
 </div>
+<p>El modelo ARIMA para el retorno acumulado a 7 días presentó un MAPE de 5.67%, lo que indica que, en promedio, las predicciones tuvieron un error absoluto del 5.67% con respecto a los valores reales. Sin embargo, el coeficiente de determinación (R²) fue de -1.82, lo que sugiere que el modelo no logró capturar la variabilidad de los datos y su desempeño fue inferior al de una simple media.</p>
+<p>Además, el p-valor de la prueba de Ljung-Box fue extremadamente bajo (5.07e-19), lo que indica que existen correlaciones significativas en los residuos, sugiriendo que el modelo no capturó adecuadamente las dependencias temporales en los datos. Asimismo, el p-valor de la prueba de Jarque-Bera fue 0, lo que implica que los residuos no siguen una distribución normal, lo cual es un supuesto clave en los modelos ARIMA.</p>
 <p>Volatilidad 07 dias.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
  
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -10947,16 +11087,6 @@ Métricas del modelo ARIMA(3, 1, 1):
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Volatilidad 7d&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="c1"># -------------------------------------------------------------------------</span>
-<span class="c1"># 5) ACF de los residuos del conjunto de TEST</span>
-<span class="c1"># -------------------------------------------------------------------------</span>
-<span class="n">residuals_test_volatility</span> <span class="o">=</span> <span class="n">test</span><span class="p">[</span><span class="s2">&quot;Volatility_7d&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">val_predictions_volatility</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
-<span class="n">acf_vals_test_volatility</span> <span class="o">=</span> <span class="n">acf</span><span class="p">(</span><span class="n">residuals_test_volatility</span><span class="p">,</span> <span class="n">nlags</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">31</span><span class="p">),</span> <span class="n">acf_vals_test_volatility</span><span class="p">,</span> <span class="n">basefmt</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;ACF de Residuos (Test) - ARIMA(3,1,1) para Volatility_7d&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
 <span class="c1"># -------------------------------------------------------------------------</span>
 <span class="c1"># 6) Pruebas de hipótesis sobre los residuos de ENTRENAMIENTO</span>
@@ -11002,8 +11132,7 @@ Métricas del modelo ARIMA(3, 1, 1):
 4     R^2  -0.522161
 </pre></div>
 </div>
-<img alt="_images/45d560373a79b84ceafdedbc60721cd5486fad295b07a3cccffad234e43defe8.png" src="_images/45d560373a79b84ceafdedbc60721cd5486fad295b07a3cccffad234e43defe8.png" />
-<img alt="_images/f666de356855d8cd9cfbec5bd2a032f7735ff3ffa4102d4eef4639e2ebb8c706.png" src="_images/f666de356855d8cd9cfbec5bd2a032f7735ff3ffa4102d4eef4639e2ebb8c706.png" />
+<img alt="_images/ea95b9d64c573d9ddbcc65b5da2140d204e07b12d167b6a1fd72989c7a9fc34f.png" src="_images/ea95b9d64c573d9ddbcc65b5da2140d204e07b12d167b6a1fd72989c7a9fc34f.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Métricas del modelo (Entrenamiento) + Pruebas de hipótesis:
         MAPE       MAE     RMSE       MSE        R2  Ljung-Box p-value  \
 0  42.818333  0.016598  0.02432  0.000591 -0.522161      3.661140e-136   
@@ -11017,7 +11146,7 @@ Métricas del modelo ARIMA(3, 1, 1):
 <p>Volatilidad 14 dias.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
  
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -11141,17 +11270,6 @@ Métricas del modelo ARIMA(3, 1, 1):
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
 <span class="c1"># -------------------------------------------------------------------------</span>
-<span class="c1"># 5) ACF de los residuos del conjunto de TEST</span>
-<span class="c1"># -------------------------------------------------------------------------</span>
-<span class="n">residuals_test_volatility_14d</span> <span class="o">=</span> <span class="n">test</span><span class="p">[</span><span class="s2">&quot;Volatility_14d&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">val_predictions_volatility_14d</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
-<span class="n">acf_vals_test_volatility_14d</span> <span class="o">=</span> <span class="n">acf</span><span class="p">(</span><span class="n">residuals_test_volatility_14d</span><span class="p">,</span> <span class="n">nlags</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">31</span><span class="p">),</span> <span class="n">acf_vals_test_volatility_14d</span><span class="p">,</span> <span class="n">basefmt</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;ACF de Residuos (Test) - ARIMA(3,1,1) para Volatility_14d&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="c1"># -------------------------------------------------------------------------</span>
 <span class="c1"># 6) Pruebas de hipótesis sobre los residuos de ENTRENAMIENTO</span>
 <span class="c1"># -------------------------------------------------------------------------</span>
 <span class="c1"># Residuos de entrenamiento</span>
@@ -11195,8 +11313,7 @@ Métricas del modelo ARIMA(3, 1, 1) para Volatility_14d:
 4     R^2  -1.048558
 </pre></div>
 </div>
-<img alt="_images/a048e4126af1a97e991c6a94c4a6491bf4708a279a924da1e1fd841b2efe4ed2.png" src="_images/a048e4126af1a97e991c6a94c4a6491bf4708a279a924da1e1fd841b2efe4ed2.png" />
-<img alt="_images/2e142714d5d74646c6949821224982af417fcb3ae6ce84ffca98c7c8ec3faa5c.png" src="_images/2e142714d5d74646c6949821224982af417fcb3ae6ce84ffca98c7c8ec3faa5c.png" />
+<img alt="_images/728d93ff378cc69840f89b560852a839199198623aaf2505019fc55c552fc740.png" src="_images/728d93ff378cc69840f89b560852a839199198623aaf2505019fc55c552fc740.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Métricas del modelo (Entrenamiento) + Pruebas de hipótesis para Volatility_14d:
         MAPE       MAE      RMSE       MSE        R2  Ljung-Box p-value  \
 0  43.738838  0.018392  0.024565  0.000603 -1.048558       6.402945e-13   
@@ -11210,7 +11327,7 @@ Métricas del modelo ARIMA(3, 1, 1) para Volatility_14d:
 <p>Volatilidad 21 días</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
  
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -11334,17 +11451,6 @@ Métricas del modelo ARIMA(3, 1, 1) para Volatility_14d:
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
 <span class="c1"># -------------------------------------------------------------------------</span>
-<span class="c1"># 5) ACF de los residuos del conjunto de TEST</span>
-<span class="c1"># -------------------------------------------------------------------------</span>
-<span class="n">residuals_test_volatility_21d</span> <span class="o">=</span> <span class="n">test</span><span class="p">[</span><span class="s2">&quot;Volatility_21d&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">val_predictions_volatility_21d</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
-<span class="n">acf_vals_test_volatility_21d</span> <span class="o">=</span> <span class="n">acf</span><span class="p">(</span><span class="n">residuals_test_volatility_21d</span><span class="p">,</span> <span class="n">nlags</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">31</span><span class="p">),</span> <span class="n">acf_vals_test_volatility_21d</span><span class="p">,</span> <span class="n">basefmt</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;ACF de Residuos (Test) - ARIMA(3,1,1) para Volatility_21d&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="c1"># -------------------------------------------------------------------------</span>
 <span class="c1"># 6) Pruebas de hipótesis sobre los residuos de ENTRENAMIENTO</span>
 <span class="c1"># -------------------------------------------------------------------------</span>
 <span class="c1"># Residuos de entrenamiento</span>
@@ -11388,8 +11494,7 @@ Métricas del modelo ARIMA(3, 1, 1) para Volatility_21d:
 4     R^2  -0.909462
 </pre></div>
 </div>
-<img alt="_images/38c1e42ff90db1037e1d785607d72f53b09fb067bd260e570ff8aca37dfbd789.png" src="_images/38c1e42ff90db1037e1d785607d72f53b09fb067bd260e570ff8aca37dfbd789.png" />
-<img alt="_images/bf5a3988cecc87dd7f75ad427efc5a46b2ebc143c705f26dbb4b145852da9010.png" src="_images/bf5a3988cecc87dd7f75ad427efc5a46b2ebc143c705f26dbb4b145852da9010.png" />
+<img alt="_images/0ed10c6933ed27b6aac77e866405c555dd05c05adcdda0d132cfda3b91a41eff.png" src="_images/0ed10c6933ed27b6aac77e866405c555dd05c05adcdda0d132cfda3b91a41eff.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Métricas del modelo (Entrenamiento) + Pruebas de hipótesis para Volatility_21d:
         MAPE       MAE      RMSE      MSE        R2  Ljung-Box p-value  \
 0  38.543458  0.016363  0.022146  0.00049 -0.909462       4.142656e-14   
@@ -11403,7 +11508,7 @@ Métricas del modelo ARIMA(3, 1, 1) para Volatility_21d:
 <p>Volatilidad 28 días</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
  
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -11527,17 +11632,6 @@ Métricas del modelo ARIMA(3, 1, 1) para Volatility_21d:
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
 <span class="c1"># -------------------------------------------------------------------------</span>
-<span class="c1"># 5) ACF de los residuos del conjunto de TEST</span>
-<span class="c1"># -------------------------------------------------------------------------</span>
-<span class="n">residuals_test_volatility_28d</span> <span class="o">=</span> <span class="n">test</span><span class="p">[</span><span class="s2">&quot;Volatility_28d&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">val_predictions_volatility_28d</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
-<span class="n">acf_vals_test_volatility_28d</span> <span class="o">=</span> <span class="n">acf</span><span class="p">(</span><span class="n">residuals_test_volatility_28d</span><span class="p">,</span> <span class="n">nlags</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">31</span><span class="p">),</span> <span class="n">acf_vals_test_volatility_28d</span><span class="p">,</span> <span class="n">basefmt</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;ACF de Residuos (Test) - ARIMA(3,1,1) para Volatility_28d&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="c1"># -------------------------------------------------------------------------</span>
 <span class="c1"># 6) Pruebas de hipótesis sobre los residuos de ENTRENAMIENTO</span>
 <span class="c1"># -------------------------------------------------------------------------</span>
 <span class="c1"># Residuos de entrenamiento</span>
@@ -11581,8 +11675,7 @@ Métricas del modelo ARIMA(3, 1, 1) para Volatility_28d:
 4     R^2  -1.095704
 </pre></div>
 </div>
-<img alt="_images/1b5c9788fdf4a9cda8bd70d22a50d7152951baa6b548be89a7c20f101d2ed858.png" src="_images/1b5c9788fdf4a9cda8bd70d22a50d7152951baa6b548be89a7c20f101d2ed858.png" />
-<img alt="_images/c854d77f6dfc856a2ddb330a9cb1e50a5b70bcbfb36300417cc062f0d1f194d8.png" src="_images/c854d77f6dfc856a2ddb330a9cb1e50a5b70bcbfb36300417cc062f0d1f194d8.png" />
+<img alt="_images/f4c5c7f13f94493fb660158712408220f24120b308f6d325bed4ddce0c4914bb.png" src="_images/f4c5c7f13f94493fb660158712408220f24120b308f6d325bed4ddce0c4914bb.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Métricas del modelo (Entrenamiento) + Pruebas de hipótesis para Volatility_28d:
         MAPE       MAE      RMSE       MSE        R2  Ljung-Box p-value  \
 0  38.953334  0.016736  0.022024  0.000485 -1.095704       1.798334e-13   
@@ -11593,10 +11686,19 @@ Métricas del modelo ARIMA(3, 1, 1) para Volatility_28d:
 </div>
 </div>
 </div>
+<p>Los modelos presentan un desempeño deficiente en la predicción de la volatilidad en todas las ventanas temporales evaluadas (7, 14, 21 y 28 días), como lo indican los valores negativos del coeficiente de determinación (R²). Esto sugiere que los modelos no logran capturar la variabilidad de los datos y que un modelo más simple, como la media histórica, podría tener un desempeño similar o mejor.</p>
+<p>Errores de predicción:</p>
+<p>El MAPE varía entre 38.54% y 43.73%, lo que indica errores significativos en la predicción de la volatilidad.</p>
+<p>El RMSE y MAE reflejan errores relativamente similares en todas las ventanas temporales, pero siguen siendo elevados en relación con la magnitud de la serie.</p>
+<p>Pruebas de hipótesis y diagnóstico del modelo:</p>
+<p>Los valores extremadamente bajos en la prueba de Ljung-Box sugieren que los residuos presentan autocorrelación, lo que indica que el modelo ARIMA no captura adecuadamente la estructura temporal de la serie.</p>
+<p>La prueba de Jarque-Bera muestra valores p de 0.0 en todas las ventanas, lo que implica que los residuos no siguen una distribución normal. Esto puede afectar la validez de los intervalos de confianza y las predicciones del modelo.</p>
+<p>Comparación entre ventanas de volatilidad:</p>
+<p>No se observa una mejora sustancial en el desempeño del modelo al aumentar la ventana de volatilidad. Aunque el MAPE es ligeramente menor en las ventanas de 21 y 28 días, el R² sigue siendo negativo y los errores siguen siendo elevados.</p>
 <p>GARCH (Usando Rolling)</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
@@ -12784,7 +12886,7 @@ Analysis complete. Results saved to the &#39;garch&#39;
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
@@ -13473,7 +13575,7 @@ To run the full analysis on all series and configurations, uncomment the series 
 <p>GARCH 2-2</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
@@ -14553,7 +14655,7 @@ R2: -23262.6235
 <p>Precio</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -14783,7 +14885,7 @@ Jarque-Bera (p-value): 0.0000
 <p>Retorno Acumulado</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -15013,7 +15115,7 @@ Jarque-Bera (p-value): 0.0000
 <p>Volatilidad 07 dias</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -15243,7 +15345,7 @@ Jarque-Bera (p-value): 0.0000
 <p>Volatilidad 14 dias</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -15473,7 +15575,7 @@ Jarque-Bera (p-value): 0.0000
 <p>Volatilidad 21 dias</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -15705,7 +15807,7 @@ Jarque-Bera (p-value): 0.0000
 <h2>GARCH (Sin Rolling)<a class="headerlink" href="#garch-sin-rolling" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean_absolute_error</span><span class="p">,</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">mean_absolute_percentage_error</span>
@@ -15831,7 +15933,7 @@ La prueba de Ljung-Box rechaza la hipótesis nula: La serie muestra autocorrelac
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean_absolute_error</span><span class="p">,</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">mean_absolute_percentage_error</span>
@@ -15958,7 +16060,7 @@ La prueba de Ljung-Box rechaza la hipótesis nula: La serie muestra autocorrelac
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean_absolute_error</span><span class="p">,</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">mean_absolute_percentage_error</span>
@@ -16085,7 +16187,7 @@ La prueba de Ljung-Box rechaza la hipótesis nula: La serie muestra autocorrelac
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean_absolute_error</span><span class="p">,</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">mean_absolute_percentage_error</span>
@@ -16213,10 +16315,9 @@ La prueba de Ljung-Box rechaza la hipótesis nula: La serie muestra autocorrelac
 </section>
 <section id="garch-con-rolling">
 <h2>GARCH (Con Rolling)<a class="headerlink" href="#garch-con-rolling" title="Link to this heading">#</a></h2>
-<p>aplicar un rolling window para calcular una media móvil de 7 días sobre la columna ‘Price’ y almacenarla en la nueva columna ‘SMA_7’. La función .rolling(window=7) genera una ventana deslizante de 7 días, y luego .mean() calcula la media de los valores dentro de cada ventana.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean_absolute_error</span><span class="p">,</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">mean_absolute_percentage_error</span>
@@ -16345,7 +16446,7 @@ La prueba de Ljung-Box rechaza la hipótesis nula: La serie muestra autocorrelac
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean_absolute_error</span><span class="p">,</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">mean_absolute_percentage_error</span>
@@ -16473,7 +16574,7 @@ La prueba de Ljung-Box rechaza la hipótesis nula: La serie muestra autocorrelac
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean_absolute_error</span><span class="p">,</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">mean_absolute_percentage_error</span>
@@ -16584,7 +16685,6 @@ La prueba de Ljung-Box rechaza la hipótesis nula: La serie muestra autocorrelac
 <span class="c1"># Ajustar diseño y mostrar</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
 </pre></div>
 </div>
 </div>
@@ -16602,7 +16702,7 @@ La prueba de Ljung-Box rechaza la hipótesis nula: La serie muestra autocorrelac
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean_absolute_error</span><span class="p">,</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">mean_absolute_percentage_error</span>
@@ -16799,7 +16899,7 @@ La prueba de Ljung-Box rechaza la hipótesis nula: La serie muestra autocorrelac
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#planteamiento"><em>Planteamiento</em></a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#solucion"><em>Solución</em></a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-exponential-smoothing-sin-libreria">Simple Exponential Smoothing (Sin Librería)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-exponential-smoothing-con-libreria">Simple Exponential Smoothing (con librería)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-exponential-smoothing-usando-statsmodels-tsa-holtwinters">Simple Exponential Smoothing (usando statsmodels.tsa.holtwinters)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#double-exponential-smoothing-sin-libreria">Double Exponential Smoothing (Sin librería)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#double-exponential-smoothing-usando-statsmodels-tsa-holtwinters">Double Exponential Smoothing (Usando statsmodels.tsa.holtwinters)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arima-sin-rolling">ARIMA (Sin Rolling)</a></li>

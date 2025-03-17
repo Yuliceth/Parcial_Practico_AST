@@ -457,7 +457,7 @@ A_t = \sum_{j=1}^{t} R_j, \quad \text{con} \quad R_t = \frac{P_t - P_{t-1}}{P_{t
 <h2>1.1 Cargue y preparación de datos<a class="headerlink" href="#cargue-y-preparacion-de-datos" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
  
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -499,7 +499,7 @@ A_t = \sum_{j=1}^{t} R_j, \quad \text{con} \quad R_t = \frac{P_t - P_{t-1}}{P_{t
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">())</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
 </pre></div>
@@ -534,7 +534,7 @@ dtype: int64
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
@@ -552,7 +552,7 @@ Date
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)])</span>
 </pre></div>
 </div>
 </div>
@@ -571,7 +571,7 @@ Date
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Contar valores nulos en cada columna</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Contar valores nulos en cada columna</span>
 <span class="n">valores_faltantes</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 
 <span class="c1"># Filtrar solo las columnas que tienen valores nulos</span>
@@ -593,7 +593,7 @@ dtype: int64
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Gráfica de Barras (Conteo de Valores Faltantes)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Gráfica de Barras (Conteo de Valores Faltantes)</span>
 
 <span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
 
@@ -609,9 +609,10 @@ dtype: int64
 <img alt="_images/a52ece08b8b8294855bca3177a4e66cdcec908d413b814f76f2c40ca0fc35aa5.png" src="_images/a52ece08b8b8294855bca3177a4e66cdcec908d413b814f76f2c40ca0fc35aa5.png" />
 </div>
 </div>
+<p>En la primera parte de este análisis observamos un conjunto de datos con siete columnas que contienen variables relacionadas con el Bitcoin. El total de observaciones es 4,999, y se identificaron seis datos faltantes en la columna “Volumen”.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Contar valores faltantes por columna</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Contar valores faltantes por columna</span>
 <span class="n">missing_values</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 
 <span class="c1"># Mostrar solo columnas con valores faltantes</span>
@@ -631,7 +632,7 @@ dtype: int64
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Imputación combinada: Imputación por propagación hacia adelante y hacia atras (ffill + bfill).</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Imputación combinada: Imputación por propagación hacia adelante y hacia atras (ffill + bfill).</span>
 <span class="n">df</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;bfill&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># Usa el siguiente valor disponible</span>
 <span class="n">df</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;ffill&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># Usa el valor anterior si sigue habiendo nulos</span>
 </pre></div>
@@ -640,7 +641,7 @@ dtype: int64
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Verificar si los valores faltantes fueron imputados</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Verificar si los valores faltantes fueron imputados</span>
 <span class="n">missing_values_after</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Price&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Número de valores faltantes después de la imputación: </span><span class="si">{</span><span class="n">missing_values_after</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
@@ -657,7 +658,7 @@ dtype: int64
 <h2>1.2 Visualización y análisis descriptivo<a class="headerlink" href="#visualizacion-y-analisis-descriptivo" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Graficar la serie de precios</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Graficar la serie de precios</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">plotly.express</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">px</span>  
 <span class="n">graph_price</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Price&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Serie Temporal del Precio de Bitcoin&#39;</span><span class="p">)</span>
 <span class="n">graph_price</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -667,9 +668,10 @@ dtype: int64
 <div class="cell_output docutils container">
 </div>
 </div>
+<p>En la visualización del análisis descriptivo, la serie de tiempo muestra un inicio con valores muy bajos en comparación con el crecimiento exponencial que se observa más adelante. Inicialmente, el precio del Bitcoin comienza en 0.1 y se mantiene en niveles bajos durante aproximadamente la mitad del período analizado. Posteriormente, se evidencia una tendencia creciente que culmina con un valor cercano a $73,000 hacia el final de la serie.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Gráfico de velas con Plotly</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Gráfico de velas con Plotly</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">plotly.graph_objects</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">go</span>
 <span class="n">fig_candlestick</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">[</span>
     <span class="n">go</span><span class="o">.</span><span class="n">Candlestick</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
@@ -684,18 +686,26 @@ dtype: int64
 <div class="cell_output docutils container">
 </div>
 </div>
+<p>Se generó un gráfico de velas interactivo que permite hacer zoom y observar el valor diario del Bitcoin. Esta representación facilita el análisis de las fluctuaciones diarias y permite ubicar cualquier observación dentro del período analizado.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">plotly.express</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">px</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Histograma del Volumen Tradeado</span>
 
-<span class="c1"># Crear el gráfico de barras con Plotly</span>
-<span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Vol.&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Volumen Tradeado Diariamente&quot;</span><span class="p">)</span>
+<span class="c1"># Cargar los datos de Bitcoin en el DataFrame</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data_url</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">],</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;Date&#39;</span><span class="p">)</span>
 
-<span class="c1"># Configurar la escala logarítmica en el eje Y</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">,</span> <span class="n">title_text</span><span class="o">=</span><span class="s2">&quot;Volumen Tradeado&quot;</span><span class="p">)</span>
+<span class="c1"># Crear el histograma del volumen tradeado diariamente</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;Vol.&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Histograma de Frecuencia del Volumen Tradeado Diariamente&quot;</span><span class="p">)</span>
 
-<span class="c1"># Configurar el eje X</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">title_text</span><span class="o">=</span><span class="s2">&quot;Días&quot;</span><span class="p">)</span>
+<span class="c1"># Configurar el color de las barras</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">marker_color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>  <span class="c1"># Color gris</span>
+
+<span class="c1"># Cambiar el fondo a blanco</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">plot_bgcolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">paper_bgcolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+
+<span class="c1"># Configurar los ejes</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">title_text</span><span class="o">=</span><span class="s2">&quot;Volumen Tradeado&quot;</span><span class="p">)</span>  <span class="c1"># Eje X con el volumen tradeado</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">title_text</span><span class="o">=</span><span class="s2">&quot;Frecuencia&quot;</span><span class="p">)</span>  <span class="c1"># Eje Y con la frecuencia</span>
 
 <span class="c1"># Mostrar la gráfica</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -705,9 +715,97 @@ dtype: int64
 <div class="cell_output docutils container">
 </div>
 </div>
+<p>Posteriormente, se construyó un histograma para representar la distribución del volumen de transacciones de Bitcoin a nivel diario, donde el eje X corresponde al volumen y el eje Y a la frecuencia de cada intervalo de volumen. El objetivo de este histograma es obtener una representación visual de cómo se distribuye el volumen de transacciones de Bitcoin a lo largo del tiempo, permitiendo identificar patrones o anomalías en los datos.</p>
+<p>El comportamiento observado en las barras del histograma, especialmente su dispersión, puede explicarse por varios factores relacionados con los datos y la naturaleza del mercado de Bitcoin. Las barras del histograma muestran una gran dispersión debido a la alta volatilidad y variabilidad del mercado de Bitcoin. El volumen de transacciones puede fluctuar significativamente en períodos muy cortos, lo que provoca una gran cantidad de días con volúmenes extremos. Esta variabilidad distorsiona la distribución de los datos, resultando en una forma platicúrtica, caracterizada por colas gruesas y una amplia dispersión en relación con la media.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Conviersión de todas las columnas de tipo Period a str antes de graficar:</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Gráfica de barras del Volumen Tradeado</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">plotly.express</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">px</span>
+
+<span class="c1"># Crear el gráfico de barras con Plotly</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Vol.&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Volumen Tradeado Diariamente&quot;</span><span class="p">,</span>
+             <span class="n">color_discrete_sequence</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;black&quot;</span><span class="p">])</span>  <span class="c1"># Color negro</span>
+
+<span class="c1"># Configurar la escala logarítmica en el eje Y</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">,</span> <span class="n">title_text</span><span class="o">=</span><span class="s2">&quot;Volumen Tradeado&quot;</span><span class="p">)</span>
+
+<span class="c1"># Configurar el eje X</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">title_text</span><span class="o">=</span><span class="s2">&quot;Días&quot;</span><span class="p">)</span>
+
+<span class="c1"># Cambiar el color de fondo a blanco</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">plot_bgcolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">paper_bgcolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+
+<span class="c1"># Mostrar la gráfica</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>Además, se construyó unn diagrama de barras interactivo del volumen negociado diariamente, utilizando una escala logarítmica. Esto se hizo porque los valores iniciales son muy pequeños en comparación con los valores finales, lo que dificulta su visualización en una escala lineal. Sin esta transformación, las barras correspondientes a los valores más bajos serían prácticamente imperceptibles. Dee sta manera, es posible apreciar con mayor claridad la evolución del volumen negociado a lo largo del tiempo.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">plotly.express</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">px</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">plotly.graph_objects</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">go</span>
+
+<span class="c1"># --- Paso 1: Preparar el DataFrame ---</span>
+<span class="c1"># Se asume que df ya está cargado y contiene las columnas &quot;Price&quot;, &quot;Open&quot;, &quot;High&quot;, &quot;Low&quot;</span>
+<span class="c1"># Convertir &quot;Price&quot; y otras columnas a numérico (quitando comas si las hay)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Price&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Price&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Open&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Open&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;High&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;High&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Low&#39;</span><span class="p">]</span>  <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Low&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+
+<span class="c1"># --- Paso 2: Crear series de tiempo agregadas por semana, mes y año ---</span>
+<span class="c1"># Se asume que df ya tiene &quot;Date&quot; como índice</span>
+<span class="n">df_ts</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># Agregación semanal, mensual y anual (usando la media de Price)</span>
+<span class="n">weekly_series</span>  <span class="o">=</span> <span class="n">df_ts</span><span class="p">[</span><span class="s1">&#39;Price&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;W&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">monthly_series</span> <span class="o">=</span> <span class="n">df_ts</span><span class="p">[</span><span class="s1">&#39;Price&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;M&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">annual_series</span>  <span class="o">=</span> <span class="n">df_ts</span><span class="p">[</span><span class="s1">&#39;Price&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="c1"># --- Paso 3: Gráficos de series de tiempo ---</span>
+
+<span class="c1"># Gráfico de series de tiempo semanal</span>
+<span class="n">fig_week</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+<span class="n">fig_week</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">weekly_series</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">weekly_series</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                              <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;lines&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Semanal&#39;</span><span class="p">))</span>
+<span class="n">fig_week</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Serie de Tiempo - Agregación Semanal&#39;</span><span class="p">,</span>
+                       <span class="n">xaxis_title</span><span class="o">=</span><span class="s1">&#39;Fecha&#39;</span><span class="p">,</span> <span class="n">yaxis_title</span><span class="o">=</span><span class="s1">&#39;Precio&#39;</span><span class="p">)</span>
+<span class="n">fig_week</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Gráfico de series de tiempo mensual</span>
+<span class="n">fig_month</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+<span class="n">fig_month</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">monthly_series</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">monthly_series</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                               <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;lines&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Mensual&#39;</span><span class="p">))</span>
+<span class="n">fig_month</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Serie de Tiempo - Agregación Mensual&#39;</span><span class="p">,</span>
+                        <span class="n">xaxis_title</span><span class="o">=</span><span class="s1">&#39;Fecha&#39;</span><span class="p">,</span> <span class="n">yaxis_title</span><span class="o">=</span><span class="s1">&#39;Precio&#39;</span><span class="p">)</span>
+<span class="n">fig_month</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Gráfico de series de tiempo anual</span>
+<span class="n">fig_year</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+<span class="n">fig_year</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">annual_series</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">annual_series</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                              <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;lines&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Anual&#39;</span><span class="p">))</span>
+<span class="n">fig_year</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Serie de Tiempo - Agregación Anual&#39;</span><span class="p">,</span>
+                       <span class="n">xaxis_title</span><span class="o">=</span><span class="s1">&#39;Fecha&#39;</span><span class="p">,</span> <span class="n">yaxis_title</span><span class="o">=</span><span class="s1">&#39;Precio&#39;</span><span class="p">)</span>
+<span class="n">fig_year</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>Al analizar las series de tiempo del precio de Bitcoin agregadas en diferentes frecuencias (semanal, mensual y anual), se observan las siguientes características:</p>
+<p>Agregación semanal: La serie mantiene una forma y tendencia similares a la observada en los datos diarios, reflejando las fluctuaciones detalladas del precio de Bitcoin.</p>
+<p>Agregación mensual: La serie presenta una suavización de las fluctuaciones, lo que facilita la identificación de tendencias generales y patrones más amplios en el comportamiento del precio.</p>
+<p>Agregación anual: La serie muestra una tendencia más estable, con menos fluctuaciones visibles. Se destaca una fase inicial con valores cercanos a cero en los primeros años, seguida de un incremento notable en la segunda mitad del período analizado.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Conviersión de todas las columnas de tipo Period a str antes de graficar:</span>
 
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">to_period</span><span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Month&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">to_period</span><span class="p">(</span><span class="s1">&#39;M&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>  <span class="c1"># Convertir &#39;Month&#39; a string</span>
@@ -728,12 +826,17 @@ dtype: int64
 <div class="cell_output docutils container">
 </div>
 </div>
+<p>En cuanto a los diagramas de caja (box plots) agrupados por semana, mes y año, se pueden realizar las siguientes observaciones:</p>
+<p>Box plots semanales: Muestran una distribución regular de los precios, permitiendo identificar la variabilidad y posibles valores atípicos en intervalos cortos de tiempo.</p>
+<p>Box plots mensuales: Ofrecen una visión más consolidada de la dispersión de los precios dentro de cada mes, facilitando la comparación entre diferentes períodos mensuales.</p>
+<p>Box plots anuales: Reflejan la tendencia general observada en la serie anual, destacando la estabilidad en los primeros años y el aumento significativo de los precios en años posteriores.</p>
+<p>Los diagramas de caja son herramientas útiles para visualizar la distribución de los datos, identificando la mediana, los cuartiles y posibles valores atípicos, lo que facilita el análisis de la variabilidad y la tendencia central en diferentes períodos de tiempo.</p>
 </section>
 <section id="analisis-de-estacionariedad">
 <h2>1.3 Análisis de estacionariedad<a class="headerlink" href="#analisis-de-estacionariedad" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Análisis de estacionariedad con ACF</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Análisis de estacionariedad con ACF</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
 <span class="n">sm</span><span class="o">.</span><span class="n">graphics</span><span class="o">.</span><span class="n">tsa</span><span class="o">.</span><span class="n">plot_acf</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Price&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">(),</span> <span class="n">lags</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Función de Autocorrelación (ACF) del Precio de Bitcoin&#39;</span><span class="p">)</span>
@@ -748,9 +851,10 @@ dtype: int64
 <img alt="_images/4f85b848dc22b01c417f89163d159b96511d2006071313b1eea9a9f14d18bb54.png" src="_images/4f85b848dc22b01c417f89163d159b96511d2006071313b1eea9a9f14d18bb54.png" />
 </div>
 </div>
+<p>La Función de Autocorrelación (ACF): La ACF muestra autocorrelaciones significativas en múltiples rezagos, indicando una fuerte dependencia temporal en la serie del precio de Bitcoin.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Análisis de estacionariedad con Dickey Fuller</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Análisis de estacionariedad con Dickey Fuller</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">statsmodels.tsa.stattools</span><span class="w"> </span><span class="kn">import</span> <span class="n">adfuller</span>
 <span class="n">result</span> <span class="o">=</span> <span class="n">adfuller</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Price&#39;</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dickey-Fuller p-value: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -763,9 +867,10 @@ dtype: int64
 </div>
 </div>
 </div>
+<p>En la Prueba de Dickey-Fuller Aumentada, el valor p de 0.942 sugiere que la serie no es estacionaria, ya que no podemos rechazar la hipótesis nula de presencia de raíz unitaria.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Prueba de independencia de residuos con Ljung-Box</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Prueba de independencia de residuos con Ljung-Box</span>
 <span class="n">ljung_box_results</span> <span class="o">=</span> <span class="n">q_stat</span><span class="p">(</span><span class="n">acf</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Price&#39;</span><span class="p">],</span> <span class="n">nlags</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">fft</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">1</span><span class="p">:],</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ljung-Box p-values: </span><span class="si">{</span><span class="n">ljung_box_results</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
@@ -777,9 +882,10 @@ dtype: int64
 </div>
 </div>
 </div>
+<p>En la rueba de Ljung-Box Los valores p cercanos o iguales a cero en 20 rezagos indican que los residuos no son independientes, evidenciando autocorrelación en la serie.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sm</span>
@@ -853,9 +959,11 @@ Warnings:
 <img alt="_images/39e5ef3536e782fe589fcfc2ab258cadeb4de122f43905d85f5d3e7b8a4f0bfd.png" src="_images/39e5ef3536e782fe589fcfc2ab258cadeb4de122f43905d85f5d3e7b8a4f0bfd.png" />
 </div>
 </div>
+<p>Se aplicó un modelo SARIMA para capturar posibles patrones complejos en los datos.</p>
+<p>Resultados del modelo: El estadístico de Box-Pierce fue cero, indicando que no hay autocorrelación significativa en los residuos del modelo. Sin embargo, se observó heterocedasticidad con un valor de 2190 en la prueba de heterocedasticidad, lo que sugiere que la varianza de los errores no es constante en el tiempo. Además, se obtuvo un estadístico Ljung-Box de 0.41 con un p-valor de 0.51, lo que indica que no hay evidencia suficiente para rechazar la hipótesis nula de no autocorrelación en los residuos.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">statsmodels.stats.diagnostic</span><span class="w"> </span><span class="kn">import</span> <span class="n">acorr_ljungbox</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">statsmodels.stats.diagnostic</span><span class="w"> </span><span class="kn">import</span> <span class="n">acorr_ljungbox</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="n">price_series</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Price&quot;</span><span class="p">]</span>
 <span class="n">log_price</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">price_series</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># Evita log(0)</span>
@@ -878,7 +986,7 @@ Warnings:
 <h2>1.4 Análisis de agregaciones y estadísticas móviles<a class="headerlink" href="#analisis-de-agregaciones-y-estadisticas-moviles" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Agregación por grupos</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Agregación por grupos</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">plotly.graph_objects</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">go</span>
@@ -969,9 +1077,16 @@ Warnings:
 <div class="cell_output docutils container">
 </div>
 </div>
+<p>a) Boxplot por semana:</p>
+<p>Este gráfico agrupa los datos de cada semana del año a lo largo de múltiples años (por ejemplo, semana 1 de cada año, semana 2, etc.). Esta visualización es útil para identificar patrones semanales y detectar semanas con alta volatilidad. Por ejemplo, si ciertas semanas muestran una mayor dispersión en los datos, podría indicar períodos de mayor inestabilidad en el mercado.</p>
+<p>b) Boxplot por mes (Estacionalidad):</p>
+<p>En este gráfico, se agrupan todos los datos de cada mes específico (todos los eneros, todos los febreros, etc.) a lo largo de los años analizados. Esta representación permite identificar meses con alta volatilidad o patrones estacionales en la serie temporal. En el contexto financiero, puede revelar si ciertos meses tienden a tener retornos más altos o más bajos, lo cual es crucial para la planificación y toma de decisiones.</p>
+<p>c) Boxplot por año:</p>
+<p>Este gráfico agrupa los datos por año completo, mostrando la evolución de la dispersión a lo largo del tiempo. Es útil para observar si la volatilidad ha aumentado o disminuido con el tiempo, permitiendo detectar períodos de crisis o estabilidad en el mercado. Por ejemplo, una mayor dispersión en ciertos años podría reflejar eventos económicos significativos que afectaron la estabilidad del mercado.</p>
+<p>Estos diagramas de caja proporcionan una visión clara de la distribución y dispersión de los datos en diferentes escalas temporales, facilitando la identificación de patrones, tendencias y anomalías en la serie temporal analizada.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Cálculo de estadísticos móviles</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Cálculo de estadísticos móviles</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Rolling_Mean_7&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Price&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Rolling_Std_7&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Price&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
 </pre></div>
@@ -980,7 +1095,7 @@ Warnings:
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Distribución de frecuencias para diferentes lags</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Distribución de frecuencias para diferentes lags</span>
 <span class="n">lags</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">30</span><span class="p">]</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
 <span class="k">for</span> <span class="n">lag</span> <span class="ow">in</span> <span class="n">lags</span><span class="p">:</span>
@@ -995,12 +1110,13 @@ Warnings:
 <img alt="_images/9a3515c9b01eb676072c1d5efbdf10ed386057dfc1ac1528c73fbf54129c66dd.png" src="_images/9a3515c9b01eb676072c1d5efbdf10ed386057dfc1ac1528c73fbf54129c66dd.png" />
 </div>
 </div>
+<p>La figura muestra que, en el rezago 1, los datos se agrupan estrechamente alrededor de cero, indicando una fuerte autocorrelación inmediata. A medida que aumentan los rezagos, la dispersión se incrementa ligeramente, pero la mayoría de los valores permanecen concentrados en el centro, lo que sugiere que la dependencia temporal disminuye con el tiempo, aunque persiste cierta correlación en rezagos mayores.</p>
 </section>
 <section id="aplicacion-de-medias-moviles">
 <h2>1.5 Aplicación de medias móviles<a class="headerlink" href="#aplicacion-de-medias-moviles" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Medias móviles</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Medias móviles</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;SMA_7&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Price&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;SMA_14&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Price&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 </pre></div>
@@ -1009,7 +1125,7 @@ Warnings:
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Graficar medias móviles</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Graficar medias móviles</span>
 <span class="n">fig_ma</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Price&#39;</span><span class="p">,</span> <span class="s1">&#39;SMA_7&#39;</span><span class="p">,</span> <span class="s1">&#39;SMA_14&#39;</span><span class="p">],</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Medias Móviles del Precio de Bitcoin&#39;</span><span class="p">)</span>
 <span class="n">fig_ma</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -1020,7 +1136,7 @@ Warnings:
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sm</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">statsmodels.tsa.stattools</span><span class="w"> </span><span class="kn">import</span> <span class="n">adfuller</span>
@@ -1125,12 +1241,16 @@ detrended_cM4_t_t1:
 </div>
 </div>
 </div>
+<p>En los resultados, todos los estadísticos son muy negativos y los p-valores son prácticamente cero (o extremadamente bajos, e.g., 3.65e−173.65e-173.65e−17).
+Esto indica que las series han logrado estacionariedad después de la remoción de la tendencia mediante medias móviles.
+detrended_cM3_t_t1 y detrended_cM3_t_t-1 tienen valores de estadístico ADF de -22.67 con p-valor 0.0, lo que indica una estacionariedad muy fuerte.
+Esta parte de los resultados muestra que la remoción de la tendencia fue efectiva y las series son estacionarias.</p>
 </section>
 <section id="descomposicion-de-la-serie-temporal">
 <h2>1.6 Descomposición de la serie temporal<a class="headerlink" href="#descomposicion-de-la-serie-temporal" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sm</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
@@ -1190,12 +1310,146 @@ detrended_cM4_t_t1:
 </div>
 </div>
 </div>
+<p>Evaluación de la Independencia con la Prueba de Ljung-Box
+Un p-valor bajo (&lt; 0.05) indica que aún hay autocorrelación en los residuos (es decir, que la serie sigue teniendo estructura dependiente en el tiempo).
+En el caso de detrended_cM4_t_t1, el p-valor es extremadamente bajo (1.38e-38), lo que sugiere que la serie todavía tiene autocorrelación significativa en los primeros 10 rezagos.
+Aunque la serie parece haber alcanzado estacionariedad (según ADF), los residuos aún presentan autocorrelación, lo que indica que no son completamente ruido blanco.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">statsmodels.tsa.stattools</span><span class="w"> </span><span class="kn">import</span> <span class="n">adfuller</span>
+
+<span class="c1"># --- Paso 1: Preparar los datos ---</span>
+<span class="c1"># Convertir índice a datetime (por si acaso)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+
+<span class="c1"># Convertir &quot;Price&quot; a numérico (si aún no lo es)</span>
+<span class="k">if</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Price&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="s1">&#39;object&#39;</span><span class="p">:</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Price&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Price&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Price&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Price&#39;</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+
+<span class="c1"># Ordenar el DataFrame por fecha (por si acaso)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">sort_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># --- Paso 2: Evaluar la estacionariedad de la serie original ---</span>
+<span class="n">serie_original</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Price&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+
+<span class="n">adf_result_orig</span> <span class="o">=</span> <span class="n">adfuller</span><span class="p">(</span><span class="n">serie_original</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Prueba ADF - Serie Original&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Estadístico de prueba: </span><span class="si">{</span><span class="n">adf_result_orig</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;p-value: </span><span class="si">{</span><span class="n">adf_result_orig</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Valores críticos:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">adf_result_orig</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># --- Paso 3: Aplicar transformación logarítmica ---</span>
+<span class="c1"># Nota: Solo aplicamos log si todos los valores son positivos</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">serie_original</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Price_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">serie_original</span><span class="p">)</span>
+    <span class="n">adf_result_log</span> <span class="o">=</span> <span class="n">adfuller</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Price_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">())</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Prueba ADF - Serie Log(Price)&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Estadístico de prueba: </span><span class="si">{</span><span class="n">adf_result_log</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;p-value: </span><span class="si">{</span><span class="n">adf_result_log</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Valores críticos:&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">adf_result_log</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># --- Paso 4: Diferenciar la serie logarítmica ---</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Price_log_diff&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Price_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span>
+    <span class="n">serie_diff</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Price_log_diff&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+
+    <span class="n">adf_result_diff</span> <span class="o">=</span> <span class="n">adfuller</span><span class="p">(</span><span class="n">serie_diff</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Prueba ADF - Serie Diferenciada (Log(Price))&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Estadístico de prueba: </span><span class="si">{</span><span class="n">adf_result_diff</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;p-value: </span><span class="si">{</span><span class="n">adf_result_diff</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Valores críticos:&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">adf_result_diff</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># --- Paso 5: Graficar las series ---</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">serie_original</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Precio Original&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Serie Original&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Price_log&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Log(Precio)&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Serie Logarítmica&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">serie_diff</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Diferencia de Log(Precio)&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Serie Diferenciada (Log(Precio)) - Estacionaria&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Prueba ADF - Serie Original
+Estadístico de prueba: -0.1644
+p-value: 0.9426
+Valores críticos:
+   1%: -3.4317
+   5%: -2.8621
+   10%: -2.5671
+
+
+Prueba ADF - Serie Log(Price)
+Estadístico de prueba: -2.9155
+p-value: 0.0436
+Valores críticos:
+   1%: -3.4317
+   5%: -2.8621
+   10%: -2.5671
+
+
+Prueba ADF - Serie Diferenciada (Log(Price))
+Estadístico de prueba: -26.8270
+p-value: 0.0000
+Valores críticos:
+   1%: -3.4317
+   5%: -2.8621
+   10%: -2.5671
+</pre></div>
+</div>
+<img alt="_images/df189a07aa43cf03fb3437c5e6714b097602dbfe84eb35021d99869d1a9b33a7.png" src="_images/df189a07aa43cf03fb3437c5e6714b097602dbfe84eb35021d99869d1a9b33a7.png" />
+</div>
+</div>
+<p>La aplicación de la prueba de Dickey-Fuller Aumentada (ADF) a la serie de precios de Bitcoin arrojó los siguientes resultados:</p>
+<p>Serie Original:</p>
+<p>Estadístico de prueba: -0.1644</p>
+<p>p-valor: 0.9426</p>
+<p>Valores críticos: 1%: -3.4317, 5%: -2.8621, 10%: -2.5671</p>
+<p>El elevado p-valor (0.9426) indica que no se puede rechazar la hipótesis nula de presencia de una raíz unitaria, sugiriendo que la serie original no es estacionaria.</p>
+<p>Serie Transformada Logarítmicamente</p>
+<p>Estadístico de prueba: -2.9155</p>
+<p>p-valor: 0.0436</p>
+<p>Valores críticos: 1%: -3.4317, 5%: -2.8621, 10%: -2.5671</p>
+<p>Un p-valor de 0.0436, inferior al nivel de significancia del 5%, permite rechazar la hipótesis nula, indicando que la serie transformada logarítmicamente es estacionaria.</p>
+<p>Serie Diferenciada de la Transformada Logarítmica</p>
+<p>Estadístico de prueba: -26.8270</p>
+<p>p-valor: 0.0000</p>
+<p>Valores críticos: 1%: -3.4317, 5%: -2.8621, 10%: -2.5671</p>
+<p>El p-valor extremadamente bajo (0.0000) confirma que la serie diferenciada de la transformada logarítmica es estacionaria.</p>
+<p>Estos resultados indican que la serie original de precios de Bitcoin no es estacionaria. Sin embargo, al aplicar una transformación logarítmica y posteriormente una diferenciación, la serie se vuelve estacionaria, lo cual es esencial para un análisis de series temporales robusto.</p>
 </section>
 <section id="repeticion-del-analisis-para-retorno-acumulado-y-volatilidad">
 <h2>1.7 Repetición del análisis para retorno acumulado y volatilidad<a class="headerlink" href="#repeticion-del-analisis-para-retorno-acumulado-y-volatilidad" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
  
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -1238,7 +1492,7 @@ detrended_cM4_t_t1:
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1262,7 +1516,7 @@ memory usage: 273.4 KB
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Return&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Price&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Return&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Price&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span>
 <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Return&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Reemplazar el primer NaN con 0</span>
  
 <span class="c1"># Calcular el retorno acumulado diario</span>
@@ -1280,7 +1534,7 @@ memory usage: 273.4 KB
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span>
 </pre></div>
 </div>
 </div>
@@ -1505,7 +1759,7 @@ memory usage: 273.4 KB
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
  
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -1561,7 +1815,7 @@ memory usage: 273.4 KB
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Volatility_7d&quot;</span><span class="p">,</span> <span class="s2">&quot;Volatility_14d&quot;</span><span class="p">,</span> <span class="s2">&quot;Volatility_21d&quot;</span><span class="p">,</span> <span class="s2">&quot;Volatility_28d&quot;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Volatility_7d&quot;</span><span class="p">,</span> <span class="s2">&quot;Volatility_14d&quot;</span><span class="p">,</span> <span class="s2">&quot;Volatility_21d&quot;</span><span class="p">,</span> <span class="s2">&quot;Volatility_28d&quot;</span><span class="p">]</span>
 <span class="n">df</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1569,7 +1823,7 @@ memory usage: 273.4 KB
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1599,7 +1853,7 @@ memory usage: 507.7 KB
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1623,7 +1877,7 @@ dtype: int64
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Imputación combinada: Imputación por propagación hacia adelante y hacia atras (ffill + bfill).</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Imputación combinada: Imputación por propagación hacia adelante y hacia atras (ffill + bfill).</span>
 <span class="n">df</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;bfill&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># Usa el siguiente valor disponible</span>
 <span class="n">df</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;ffill&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># Usa el valor anterior si sigue habiendo nulos</span>
 </pre></div>
@@ -1632,7 +1886,7 @@ dtype: int64
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1656,14 +1910,14 @@ dtype: int64
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Vol.&#39;</span><span class="p">:</span> <span class="s1">&#39;Volume&#39;</span><span class="p">,</span> <span class="s1">&#39;Change %&#39;</span><span class="p">:</span> <span class="s1">&#39;Change&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Vol.&#39;</span><span class="p">:</span> <span class="s1">&#39;Volume&#39;</span><span class="p">,</span> <span class="s1">&#39;Change %&#39;</span><span class="p">:</span> <span class="s1">&#39;Change&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span>
 </pre></div>
 </div>
 </div>
