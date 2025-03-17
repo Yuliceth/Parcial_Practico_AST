@@ -62,7 +62,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'Analisis Exploratorio de Datos';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Ejercicio 1. Análisis Exploratorio de Datos" href="Analisis%20Exploratorio%20de%20Datos2.html" />
+    <link rel="next" title="Ejercicio 2. Aplicación de modelos estadísticos" href="Modelos%20%20estad%C3%ADsticos.html" />
     <link rel="prev" title="Parcial Práctico" href="intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -183,9 +183,6 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Ejercicio 1. Análisis Exploratorio de Datos</strong></a></li>
-
-
-<li class="toctree-l1"><a class="reference internal" href="Analisis%20Exploratorio%20de%20Datos2.html"><strong>Ejercicio 1. Análisis Exploratorio de Datos</strong></a></li>
 
 
 <li class="toctree-l1"><a class="reference internal" href="Modelos%20%20estad%C3%ADsticos.html"><strong>Ejercicio 2. Aplicación de modelos estadísticos</strong></a></li>
@@ -722,6 +719,34 @@ dtype: int64
 <p>El comportamiento observado en las barras del histograma, especialmente su dispersión, puede explicarse por varios factores relacionados con los datos y la naturaleza del mercado de Bitcoin. Las barras del histograma muestran una gran dispersión debido a la alta volatilidad y variabilidad del mercado de Bitcoin. El volumen de transacciones puede fluctuar significativamente en períodos muy cortos, lo que provoca una gran cantidad de días con volúmenes extremos. Esta variabilidad distorsiona la distribución de los datos, resultando en una forma platicúrtica, caracterizada por colas gruesas y una amplia dispersión en relación con la media.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Gráfica de barras del Volumen Tradeado</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">plotly.express</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">px</span>
+
+<span class="c1"># Crear el gráfico de barras con Plotly</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Vol.&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Volumen Tradeado Diariamente&quot;</span><span class="p">,</span>
+             <span class="n">color_discrete_sequence</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;black&quot;</span><span class="p">])</span>  <span class="c1"># Color negro</span>
+
+<span class="c1"># Configurar la escala logarítmica en el eje Y</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">,</span> <span class="n">title_text</span><span class="o">=</span><span class="s2">&quot;Volumen Tradeado&quot;</span><span class="p">)</span>
+
+<span class="c1"># Configurar el eje X</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">title_text</span><span class="o">=</span><span class="s2">&quot;Días&quot;</span><span class="p">)</span>
+
+<span class="c1"># Cambiar el color de fondo a blanco</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">plot_bgcolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">paper_bgcolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+
+<span class="c1"># Mostrar la gráfica</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>Además, se construyó unn diagrama de barras interactivo del volumen negociado diariamente, utilizando una escala logarítmica. Esto se hizo porque los valores iniciales son muy pequeños en comparación con los valores finales, lo que dificulta su visualización en una escala lineal. Sin esta transformación, las barras correspondientes a los valores más bajos serían prácticamente imperceptibles. Dee sta manera, es posible apreciar con mayor claridad la evolución del volumen negociado a lo largo del tiempo.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">plotly.express</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">px</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">plotly.graph_objects</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">go</span>
@@ -823,7 +848,7 @@ dtype: int64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 1000x500 with 0 Axes&gt;
 </pre></div>
 </div>
-<img alt="_images/6d8fc99f850ac46b0c48428c66eacae055b5bec94cc9740d87839f38c9fb7c2e.png" src="_images/6d8fc99f850ac46b0c48428c66eacae055b5bec94cc9740d87839f38c9fb7c2e.png" />
+<img alt="_images/4f85b848dc22b01c417f89163d159b96511d2006071313b1eea9a9f14d18bb54.png" src="_images/4f85b848dc22b01c417f89163d159b96511d2006071313b1eea9a9f14d18bb54.png" />
 </div>
 </div>
 <p>La Función de Autocorrelación (ACF): La ACF muestra autocorrelaciones significativas en múltiples rezagos, indicando una fuerte dependencia temporal en la serie del precio de Bitcoin.</p>
@@ -837,7 +862,7 @@ dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Dickey-Fuller p-value: 0.07652825121387355
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Dickey-Fuller p-value: 0.9426372256091571
 </pre></div>
 </div>
 </div>
@@ -904,34 +929,34 @@ dtype: int64
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                     SARIMAX Results                                      
 ==========================================================================================
 Dep. Variable:                              Price   No. Observations:                 4999
-Model:             SARIMAX(2, 1, 1)x(1, 0, 1, 48)   Log Likelihood              -39128.598
-Date:                            Mon, 17 Mar 2025   AIC                          78269.196
-Time:                                    18:29:05   BIC                          78308.236
-Sample:                                         0   HQIC                         78282.886
-                                           - 4999                                         
+Model:             SARIMAX(2, 1, 1)x(1, 0, 1, 48)   Log Likelihood              -39386.839
+Date:                            Sun, 16 Mar 2025   AIC                          78785.678
+Time:                                    10:26:19   BIC                          78824.718
+Sample:                                07-18-2010   HQIC                         78799.368
+                                     - 03-24-2024                                         
 Covariance Type:                           approx                                         
 ==============================================================================
                  coef    std err          z      P&gt;|z|      [0.025      0.975]
 ------------------------------------------------------------------------------
-ar.L1          0.9092      0.045     20.081      0.000       0.820       0.998
-ar.L2          0.0431      0.015      2.885      0.004       0.014       0.072
-ma.L1         -0.9447      0.043    -21.923      0.000      -1.029      -0.860
-ar.S.L48      -0.0445      0.062     -0.716      0.474      -0.166       0.077
-ma.S.L48       0.0826      0.067      1.230      0.219      -0.049       0.214
-sigma2      4.719e+05   1.04e+04     45.215      0.000    4.51e+05    4.92e+05
+ar.L1          0.9279      0.019     47.621      0.000       0.890       0.966
+ar.L2          0.0597      0.015      4.022      0.000       0.031       0.089
+ma.L1         -1.0185      0.013    -77.523      0.000      -1.044      -0.993
+ar.S.L48      -0.1367      0.164     -0.835      0.404      -0.457       0.184
+ma.S.L48       0.1727      0.167      1.034      0.301      -0.155       0.500
+sigma2      4.759e+05   1.63e+04     29.276      0.000    4.44e+05    5.08e+05
 ===================================================================================
-Ljung-Box (L1) (Q):                   0.00   Jarque-Bera (JB):            121455.23
-Prob(Q):                              0.99   Prob(JB):                         0.00
-Heteroskedasticity (H):               0.00   Skew:                             0.16
-Prob(H) (two-sided):                  0.00   Kurtosis:                        27.27
+Ljung-Box (L1) (Q):                   0.00   Jarque-Bera (JB):            111350.41
+Prob(Q):                              1.00   Prob(JB):                         0.00
+Heteroskedasticity (H):            2190.05   Skew:                            -0.20
+Prob(H) (two-sided):                  0.00   Kurtosis:                        26.24
 ===================================================================================
 
 Warnings:
 [1] Covariance matrix calculated using numerical (complex-step) differentiation.
 </pre></div>
 </div>
-<img alt="_images/4949ce44dc1267080a3dd9d0f7e5a6e6c4ce3ba47274c5e160054fc46be141a6.png" src="_images/4949ce44dc1267080a3dd9d0f7e5a6e6c4ce3ba47274c5e160054fc46be141a6.png" />
-<img alt="_images/8c96d6e791f792b14c64cc1ab21a19f53173bf2b76a35720b7cdc43c464e34e9.png" src="_images/8c96d6e791f792b14c64cc1ab21a19f53173bf2b76a35720b7cdc43c464e34e9.png" />
+<img alt="_images/ac5807f74b679a4e5b176261aaceaf9c184eb1c43bdd48c83cc11cb6226db851.png" src="_images/ac5807f74b679a4e5b176261aaceaf9c184eb1c43bdd48c83cc11cb6226db851.png" />
+<img alt="_images/39e5ef3536e782fe589fcfc2ab258cadeb4de122f43905d85f5d3e7b8a4f0bfd.png" src="_images/39e5ef3536e782fe589fcfc2ab258cadeb4de122f43905d85f5d3e7b8a4f0bfd.png" />
 </div>
 </div>
 <p>Se aplicó un modelo SARIMA para capturar posibles patrones complejos en los datos.</p>
@@ -1082,7 +1107,7 @@ Warnings:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/022b71350f976abbe16bf0aa805094e70da2fc54d8e97021c41c66c9f1efe292.png" src="_images/022b71350f976abbe16bf0aa805094e70da2fc54d8e97021c41c66c9f1efe292.png" />
+<img alt="_images/9a3515c9b01eb676072c1d5efbdf10ed386057dfc1ac1528c73fbf54129c66dd.png" src="_images/9a3515c9b01eb676072c1d5efbdf10ed386057dfc1ac1528c73fbf54129c66dd.png" />
 </div>
 </div>
 <p>La figura muestra que, en el rezago 1, los datos se agrupan estrechamente alrededor de cero, indicando una fuerte autocorrelación inmediata. A medida que aumentan los rezagos, la dispersión se incrementa ligeramente, pero la mayoría de los valores permanecen concentrados en el centro, lo que sugiere que la dependencia temporal disminuye con el tiempo, aunque persiste cierta correlación en rezagos mayores.</p>
@@ -1156,32 +1181,32 @@ Warnings:
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Resultados de la Prueba de Dickey-Fuller:
 
 detrended_cM2_t:
-  Estadístico: -10.472194066907829
-  P-valor: 1.2757808100484913e-18
+  Estadístico: -9.886578088339864
+  P-valor: 3.6505273415731896e-17
 
 detrended_cM2_t_t1:
-  Estadístico: -10.472194066907802
-  P-valor: 1.2757808100487109e-18
+  Estadístico: -9.886578088339824
+  P-valor: 3.6505273415740586e-17
 
 detrended_cM3_t:
-  Estadístico: -10.201524374766112
-  P-valor: 5.952994572704118e-18
+  Estadístico: -9.515926723298962
+  P-valor: 3.157399273322918e-16
 
 detrended_cM3_t_t1:
-  Estadístico: -22.933801821651418
+  Estadístico: -22.671517074530176
   P-valor: 0.0
 
 detrended_cM3_t_t-1:
-  Estadístico: -22.933801821651418
+  Estadístico: -22.671517074530176
   P-valor: 0.0
 
 detrended_cM4_t:
-  Estadístico: -9.876242059220038
-  P-valor: 3.875702945323177e-17
+  Estadístico: -9.249080004579433
+  P-valor: 1.509310071203713e-15
 
 detrended_cM4_t_t1:
-  Estadístico: -10.764355274238905
-  P-valor: 2.474365907584253e-19
+  Estadístico: -10.313327846709523
+  P-valor: 3.1437135226531228e-18
 
 Resultados de la Prueba de Ljung-Box:
 
@@ -1195,7 +1220,7 @@ detrended_cM2_t_t1:
 
 detrended_cM3_t:
       lb_stat      lb_pvalue
-10  754.26109  1.395274e-155
+10  748.84869  2.029879e-154
 
 detrended_cM3_t_t1:
         lb_stat  lb_pvalue
@@ -1207,11 +1232,11 @@ detrended_cM3_t_t-1:
 
 detrended_cM4_t:
         lb_stat  lb_pvalue
-10  1916.192498        0.0
+10  1894.301002        0.0
 
 detrended_cM4_t_t1:
        lb_stat     lb_pvalue
-10  212.078588  4.851898e-40
+10  205.105942  1.388339e-38
 </pre></div>
 </div>
 </div>
@@ -1277,7 +1302,7 @@ Esta parte de los resultados muestra que la remoción de la tendencia fue efecti
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/fba78250bbf8c500c8370255ac8d3001419ec82be934ba07db38642c0b97bd6b.png" src="_images/fba78250bbf8c500c8370255ac8d3001419ec82be934ba07db38642c0b97bd6b.png" />
+<img alt="_images/5e6595aedc2aea02328816ace48a05421fd1f03dc8dd9b6ff8ce746cac3c4594.png" src="_images/5e6595aedc2aea02328816ace48a05421fd1f03dc8dd9b6ff8ce746cac3c4594.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Prueba de Ljung-Box sobre los residuos:
         lb_stat      lb_pvalue
 10  1026.374408  3.889671e-214
@@ -2158,11 +2183,11 @@ dtype: int64
       </div>
     </a>
     <a class="right-next"
-       href="Analisis%20Exploratorio%20de%20Datos2.html"
+       href="Modelos%20%20estad%C3%ADsticos.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><strong>Ejercicio 1. Análisis Exploratorio de Datos</strong></p>
+        <p class="prev-next-title"><strong>Ejercicio 2. Aplicación de modelos estadísticos</strong></p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
